@@ -24,5 +24,3 @@ yarn-error.log*
 
 #pnpm files
 pnpm-debug.log*
-pnpm-lock.yaml
-pnpm-workspace.yaml
