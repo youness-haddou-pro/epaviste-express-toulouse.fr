@@ -1,0 +1,45 @@
+---
+interface Address { street: string; postalCode: string; city: string }
+const { data } = Astro.props as { data: { phone: string; phoneCompact: string; email: string; siret: string; address: Address } };
+---
+<section id="contact" class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Contact</h2>
+      <p class="mt-2 text-gray-600">Réponse rapide 9h–22h. Vous pouvez aussi nous appeler directement.</p>
+    </header>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      <div class="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200">
+        <h3 class="font-semibold">Coordonnées</h3>
+        <ul class="mt-3 space-y-2 text-sm text-gray-700">
+          <li>📞 <a class="font-medium text-emerald-700 hover:underline" href={`tel:${data.phoneCompact}`}>{data.phone}</a></li>
+          <li>✉️ <a class="hover:underline" href={`mailto:${data.email}`}>{data.email}</a></li>
+          <li>📍 {data.address.street}, {data.address.postalCode} {data.address.city}</li>
+          <li>🕘 9h–22h — 7j/7</li>
+          <li>🪪 SIRET : {data.siret}</li>
+          <li>✅ RC Pro assurée</li>
+        </ul>
+      </div>
+      <form class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200" method="post" netlify>
+        <input type="hidden" name="form-name" value="contact-epaviste" />
+        <div class="grid gap-4">
+          <label class="block">
+            <span class="text-sm font-medium">Nom</span>
+            <input class="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" type="text" name="name" required />
+          </label>
+          <label class="block">
+            <span class="text-sm font-medium">Téléphone</span>
+            <input class="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" type="tel" name="phone" required />
+          </label>
+          <label class="block">
+            <span class="text-sm font-medium">Message</span>
+            <textarea class="mt-1 min-h-[120px] w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" name="message" placeholder="Décrivez votre véhicule et l’emplacement…"></textarea>
+          </label>
+          <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300">Envoyer la demande</button>
+        </div>
+        <p class="mt-3 text-xs text-gray-500">En envoyant ce formulaire, vous acceptez notre politique de confidentialité.</p>
+      </form>
+    </div>
+  </div>
+</section>

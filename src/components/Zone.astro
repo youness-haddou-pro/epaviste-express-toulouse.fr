@@ -1,0 +1,22 @@
+---
+interface Address { street: string; postalCode: string; city: string }
+const { data } = Astro.props as { data: { zoneCities: string[]; address: Address } };
+---
+<section id="zone" class="bg-white">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Zone d’intervention</h2>
+      <p class="mt-2 text-gray-600">Toulouse et jusqu’à <strong>100 km</strong> autour. Hors zone : frais de déplacement <strong>20–100 €</strong> selon distance.</p>
+    </header>
+    <div class="grid gap-8 md:grid-cols-2">
+      <ul class="grid grid-cols-2 gap-2 text-sm md:grid-cols-3">
+        {data.zoneCities.map((c) => (<li class="rounded-xl bg-gray-50 px-3 py-2 ring-1 ring-gray-200">{c}</li>))}
+      </ul>
+      <div class="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200">
+        <h3 class="font-semibold">Adresse</h3>
+        <p class="mt-2 text-gray-700">{data.address.street}, {data.address.postalCode} {data.address.city}</p>
+        <p class="text-sm text-gray-600">Basés près de Toulouse — déplacements rapides sur toute l’aire toulousaine.</p>
+      </div>
+    </div>
+  </div>
+</section>

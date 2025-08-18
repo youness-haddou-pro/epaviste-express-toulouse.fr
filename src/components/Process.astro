@@ -1,0 +1,27 @@
+---
+const { phone } = Astro.props as { phone: string };
+---
+<section id="process" class="bg-gray-50">
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Comment ça marche ?</h2>
+    </header>
+    <ol class="grid gap-6 sm:grid-cols-3">
+      <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">1</span>
+        <p class="mt-3 font-semibold">Appelez {phone}</p>
+        <p class="mt-1 text-sm text-gray-600">Créneau d’appel privilégié : 9h–22h.</p>
+      </li>
+      <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">2</span>
+        <p class="mt-3 font-semibold">RDV rapide</p>
+        <p class="mt-1 text-sm text-gray-600">Intervention en 1–2 h selon votre emplacement.</p>
+      </li>
+      <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">3</span>
+        <p class="mt-3 font-semibold">Enlèvement & papiers</p>
+        <p class="mt-1 text-sm text-gray-600">Enlèvement &lt; 20 min, certificat de destruction fourni.</p>
+      </li>
+    </ol>
+  </div>
+</section>

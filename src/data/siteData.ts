@@ -1,0 +1,25 @@
+export const data = {
+	name: "Epaviste Express Toulouse",
+	siret: "805 112 612 00033",
+	phone: "+33 7 75 72 60 36",
+	phoneCompact: "+33775726036",
+	email: "rathqueber.miky@icloud.com",
+	address: {
+		street: "45 rue de Frayssinet",
+		postalCode: "31830",
+		city: "Frouzins",
+		region: "Occitanie",
+		country: "France",
+	},
+	hours: "Mo-Su 09:00-22:00",
+	zoneCities: [
+		"Borderouge",
+		"Ramonville",
+		"Empalot",
+		"Muret",
+		"L'Union",
+		"Balma",
+		"Blagnac",
+		"Roseraie",
+	],
+} as const;
