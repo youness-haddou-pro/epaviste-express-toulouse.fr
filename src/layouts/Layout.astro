@@ -9,7 +9,9 @@ export interface Props {
 const { title, description, ogImage = "/images/epaviste-hero.png", jsonld, lang = "fr" } = Astro.props;
 
 import "../styles/global.css";
+import Base from "./Base.astro";
 ---
+
 <!DOCTYPE html>
 <html lang={lang}>
   <head>
@@ -22,6 +24,10 @@ import "../styles/global.css";
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:image" content={ogImage} />
+
+    <!-- Favicons / PWA / Apple -->
+    <Base />
+
     {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)}></script>}
   </head>
   <body class="min-h-screen bg-gray-50 text-gray-900">
