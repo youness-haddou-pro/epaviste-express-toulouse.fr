@@ -1,0 +1,115 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { data } from "../data/siteData";
+
+const title = `Politique de confidentialité — ${data.name}`;
+const description = `Comment ${data.name} collecte, utilise et protège vos données personnelles (RGPD) et comment gérer les cookies.`;
+---
+
+<Layout title={title} description={description} lang="fr">
+  <main class="mx-auto max-w-4xl px-6 py-16">
+  <a href="/" class="inline-flex items-center text-sm text-emerald-700 hover:underline">← Retour à l’accueil</a>
+    <h1 class="text-3xl font-bold md:text-4xl">Politique de confidentialité</h1>
+    <p class="mt-2 text-gray-600">Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}</p>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">1. Responsable de traitement</h2>
+      <p>
+        <strong>{data.name}</strong> — SIRET {data.siret}<br />
+        Adresse : {data.address.street}, {data.address.postalCode} {data.address.city}, France<br />
+        Email : <a href={`mailto:${data.email}`} class="text-emerald-700 hover:underline">{data.email}</a> — Téléphone : {data.phone}
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">2. Données collectées</h2>
+      <ul class="list-disc space-y-2 pl-6 text-gray-800">
+        <li><strong>Formulaire de contact :</strong> nom, téléphone, email, message, éventuellement adresse du véhicule.</li>
+        <li><strong>Appels téléphoniques :</strong> informations nécessaires à la prise de RDV et au suivi d’intervention.</li>
+        <li><strong>Logs techniques :</strong> données de navigation (adresse IP abrégée, pages consultées, user‑agent) à des fins de sécurité et de mesure d’audience.</li>
+        <li><strong>Cookies/traceurs :</strong> voir la section « Cookies » ci‑dessous.</li>
+      </ul>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">3. Finalités et bases légales (RGPD)</h2>
+      <ul class="list-disc space-y-2 pl-6 text-gray-800">
+        <li><strong>Gestion des demandes et des RDV :</strong> répondre aux sollicitations, établir un devis, organiser l’enlèvement (base légale : exécution de mesures pré‑contractuelles puis contrat).</li>
+        <li><strong>Suivi administratif des VHU :</strong> constitution du dossier, certificat de destruction, obligations légales (base légale : obligation légale).</li>
+        <li><strong>Prospection très modérée de clients existants :</strong> informations de service (base légale : intérêt légitime, avec possibilité d’opposition à tout moment).</li>
+        <li><strong>Sécurité du site et mesure d’audience :</strong> prévention de la fraude, statistiques anonymisées (base légale : intérêt légitime / consentement selon le cas).</li>
+      </ul>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">4. Destinataires</h2>
+      <p>
+        Les données sont destinées aux équipes de {data.name} et, le cas échéant, à des prestataires techniques (hébergeur, outil de messagerie) et partenaires indispensables à l’exécution du service (centres VHU, sociétés de remorquage). 
+        Nous exigeons de ces destinataires qu’ils offrent des garanties adéquates de confidentialité et de sécurité.
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">5. Durées de conservation</h2>
+      <ul class="list-disc space-y-2 pl-6 text-gray-800">
+        <li>Demandes de contact non suivies : <strong>12 mois</strong> maximum.</li>
+        <li>Dossiers d’intervention et pièces associées : <strong>jusqu’à 5 ans</strong> (prescriptions légales / preuve).</li>
+        <li>Données de facturation : <strong>10 ans</strong> (obligation comptable).</li>
+        <li>Cookies : voir la section cookies pour les durées spécifiques.</li>
+      </ul>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">6. Vos droits</h2>
+      <p>
+        Conformément au RGPD et à la loi « Informatique et Libertés », vous disposez des droits d’accès, de rectification, d’effacement, d’opposition, de limitation, 
+        et de portabilité lorsque applicable. Pour les exercer, contactez‑nous à <a href={`mailto:${data.email}`} class="text-emerald-700 hover:underline">{data.email}</a>.
+      </p>
+      <p class="text-sm text-gray-700">
+        Si vous estimez, après nous avoir contactés, que vos droits ne sont pas respectés, vous pouvez adresser une réclamation à la CNIL (<a href="https://www.cnil.fr/" class="text-emerald-700 hover:underline">cnil.fr</a>).
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">7. Cookies & traceurs</h2>
+      <p>
+        Lors de votre première visite, un bandeau vous permet d’accepter, refuser ou paramétrer le dépôt de cookies non essentiels. 
+        Les cookies strictement nécessaires au fonctionnement du site sont exemptés de consentement.
+      </p>
+      <ul class="list-disc space-y-2 pl-6 text-gray-800">
+        <li><strong>Techniques / nécessaires :</strong> assurer la sécurité, mémoriser vos choix (durée : session à 12 mois).</li>
+        <li><strong>Mesure d’audience :</strong> statistiques anonymisées ou nécessitant consentement selon l’outil utilisé.</li>
+        <li><strong>Prospection :</strong> uniquement si vous y consentez expressément.</li>
+      </ul>
+      <p>
+        Vous pouvez modifier vos préférences à tout moment :
+        <button type="button" class="ml-1 rounded-lg border px-3 py-1 text-sm hover:bg-gray-50" data-cookie-preferences>
+          Gérer mes cookies
+        </button>
+        <span class="text-sm text-gray-600">(branchez ce bouton à votre CMP ou script de gestion des cookies).</span>
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">8. Sécurité</h2>
+      <p>
+        Nous mettons en œuvre des mesures techniques et organisationnelles raisonnables pour protéger vos données (chiffrement TLS en transit, contrôle d’accès, sauvegardes régulières chez l’hébergeur, etc.).
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">9. Transferts hors UE</h2>
+      <p>
+        Certains prestataires pouvant être situés hors de l’Union européenne, des garanties appropriées (clauses contractuelles types, pays reconnus adéquats) sont mises en place lorsque nécessaire.
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">10. Contact</h2>
+      <p>
+        Pour toute question relative à cette politique ou à vos données personnelles : 
+        <a href={`mailto:${data.email}`} class="text-emerald-700 hover:underline">{data.email}</a> — {data.phone}
+      </p>
+    </section>
+  </main>
+</Layout>

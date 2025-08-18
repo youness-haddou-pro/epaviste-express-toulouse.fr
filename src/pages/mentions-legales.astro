@@ -1,0 +1,96 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { data } from "../data/siteData";
+
+const title = `Mentions légales — ${data.name}`;
+const description = `${data.name} : informations légales, éditeur du site, hébergeur, propriété intellectuelle, responsabilité et contacts.`;
+---
+
+<Layout title={title} description={description} lang="fr">
+  <main class="mx-auto max-w-4xl px-6 py-16">
+  <a href="/" class="inline-flex items-center text-sm text-emerald-700 hover:underline">← Retour à l’accueil</a>
+    <h1 class="text-3xl font-bold md:text-4xl">Mentions légales</h1>
+    <p class="mt-2 text-gray-600">Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}</p>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">1. Éditeur du site</h2>
+      <p>
+        <strong>{data.name}</strong><br />
+        SIRET : {data.siret}<br />
+        Adresse : {data.address.street}, {data.address.postalCode} {data.address.city}, France<br />
+        Téléphone : {data.phone}<br />
+        Email : <a class="text-emerald-700 hover:underline" href={`mailto:${data.email}`}>{data.email}</a>
+      </p>
+      <p>
+        <strong>Directeur·rice de la publication :</strong> {"Rathqueber"}
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">2. Hébergement</h2>
+      <p>
+        Hébergeur du site : <strong>Hostinger</strong> (Hostinger International Ltd.).<br />
+        Site web : <a href="https://www.hostinger.fr" class="text-emerald-700 hover:underline">hostinger.fr</a> — Support : <a href="https://support.hostinger.com" class="text-emerald-700 hover:underline">support.hostinger.com</a>.<br />
+        Les coordonnées postales de l’hébergeur peuvent varier selon le contrat de service ; reportez-vous à votre espace client pour l’adresse la plus à jour.
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">3. Activité</h2>
+      <p>
+        {data.name} intervient pour l’enlèvement d’épaves et l’acheminement des véhicules hors d’usage (VHU) vers des centres de traitement agréés. 
+        L’entreprise organise la collecte et la logistique ; le traitement, la dépollution et la destruction administrative sont effectués par des centres VHU conformes à la réglementation en vigueur.
+      </p>
+      <p class="text-sm text-gray-600">
+        <!-- <strong>À compléter :</strong> si {data.name} est elle‑même centre VHU agréé, ajouter le numéro d’agrément préfectoral et l’autorité délivrante. -->
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">4. Propriété intellectuelle</h2>
+      <p>
+        Le présent site et l’ensemble de ses éléments (textes, images, illustrations, logos, chartes graphiques, mises en page, etc.) sont protégés par le droit d’auteur et les droits de propriété intellectuelle. 
+        Toute reproduction, représentation, modification, publication, transmission, dénaturation, totale ou partielle, du site ou de son contenu, par quelque procédé que ce soit, et sur quelque support que ce soit, est interdite sauf autorisation écrite préalable de {data.name}.
+      </p>
+      <p class="text-sm text-gray-600">Site créé par <strong>Mystery Agency</strong>. Sauf mention contraire, {data.name} est propriétaire des images utilisées.</p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">5. Responsabilité</h2>
+      <p>
+        Les informations fournies sur ce site sont indicatives et non exhaustives. {data.name} s’efforce d’assurer leur exactitude et leur mise à jour ; 
+        elle ne saurait toutefois être tenue pour responsable des erreurs, omissions, indisponibilités du service ou dommages, directs ou indirects, résultant de l’accès ou de l’usage du site.
+      </p>
+      <p>
+        Les prestations d’enlèvement sont <strong>gratuites dans la zone indiquée</strong> (Toulouse et 100 km autour) et peuvent faire l’objet de frais en dehors de cette zone ou en cas de contraintes particulières (véhicule lourd, accès difficile, etc.).
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">6. Données personnelles</h2>
+      <p>
+        Pour toute information relative au traitement de vos données et à l’usage des cookies, merci de consulter notre 
+        <a href="/politique-confidentialite" class="text-emerald-700 hover:underline">Politique de confidentialité</a>.
+      </p>
+      <p>
+        Vous pouvez exercer vos droits (accès, rectification, opposition, effacement, limitation, portabilité) en écrivant à 
+        <a class="text-emerald-700 hover:underline" href={`mailto:${data.email}`}>{data.email}</a>.
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-2">
+      <h2 class="text-xl font-semibold">7. Médiation de la consommation</h2>
+      <p class="text-sm text-gray-700">
+        Si vous êtes un consommateur et qu’un litige n’a pas pu être réglé avec notre service, vous pouvez recourir gratuitement à un médiateur de la consommation.
+      </p>
+    </section>
+
+    <section class="mt-10 space-y-4">
+      <h2 class="text-xl font-semibold">8. Contact</h2>
+      <p>
+        Pour toute question relative au site ou à son contenu : 
+        <a class="text-emerald-700 hover:underline" href={`mailto:${data.email}`}>{data.email}</a> — {data.phone}
+      </p>
+    </section>
+  </main>
+</Layout>
