@@ -1,0 +1,24 @@
+---
+interface Props {
+  href?: string;
+  label?: string;
+}
+const { href = "/", label = "Retour à l’accueil" } = Astro.props;
+---
+<a
+  href={href}
+  aria-label={label}
+  title={label}
+  class="group fixed z-50 inline-flex items-center gap-2 rounded-full bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg ring-1 ring-gray-200 backdrop-blur transition hover:bg-white focus:outline-none focus:ring-4 focus:ring-emerald-300"
+  style="
+    left: max(1rem, env(safe-area-inset-left));
+    bottom: max(1rem, env(safe-area-inset-bottom));
+  "
+>
+  <!-- Icône flèche -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+       fill="currentColor" class="h-5 w-5 -ml-1 transition group-hover:-translate-x-0.5">
+    <path d="M10.5 6l-6 6 6 6M4.5 12h15"/>
+  </svg>
+  <span>{label}</span>
+</a>

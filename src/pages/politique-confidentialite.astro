@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { data } from "../data/siteData";
+import BackHome from "../components/BackHome.astro";
 
 const title = `Politique de confidentialité — ${data.name}`;
 const description = `Comment ${data.name} collecte, utilise et protège vos données personnelles (RGPD) et comment gérer les cookies.`;
@@ -8,7 +9,6 @@ const description = `Comment ${data.name} collecte, utilise et protège vos donn
 
 <Layout title={title} description={description} lang="fr">
   <main class="mx-auto max-w-4xl px-6 py-16">
-  <a href="/" class="inline-flex items-center text-sm text-emerald-700 hover:underline">← Retour à l’accueil</a>
     <h1 class="text-3xl font-bold md:text-4xl">Politique de confidentialité</h1>
     <p class="mt-2 text-gray-600">Dernière mise à jour : {new Date().toLocaleDateString('fr-FR')}</p>
 
@@ -112,4 +112,6 @@ const description = `Comment ${data.name} collecte, utilise et protège vos donn
       </p>
     </section>
   </main>
+  
+<BackHome />
 </Layout>
