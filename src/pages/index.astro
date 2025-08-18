@@ -32,6 +32,7 @@ const data = {
 
 <!-- Head / SEO -->
 <head>
+	<meta charset="utf-8" />
   <title>Épaviste Toulouse – Enlèvement gratuit en 1–2 h | {data.name}</title>
   <meta name="description" content="Enlèvement d’épaves gratuit à Toulouse et 100 km autour. Intervention en 1–2 h, certificat de destruction (avec ou sans carte grise), zéro frais cachés. Appelez le 07 75 72 60 36." />
   <link rel="canonical" href="/" />
@@ -43,34 +44,32 @@ const data = {
   <meta property="og:type" content="website" />
   <meta property="og:image" content="/images/epaviste-hero.png" />
 
-  <!-- JSON-LD Local Business -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-  '@context': 'https://schema.org',
-  '@type': 'AutomotiveBusiness',
-  name: data.name,
-  telephone: data.phoneCompact,
-  email: data.email,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: data.address.street,
-    postalCode: data.address.postalCode,
-    addressLocality: data.address.city,
-    addressRegion: data.address.region,
-    addressCountry: 'FR'
-  },
-  areaServed: 'Toulouse et 100 km',
-  openingHours: data.hours,
-  priceRange: '€',
-  url: '/',
-  image: '/images/epaviste-hero.png',
-  makesOffer: [{
-    '@type': 'Offer',
-    name: "Enlèvement d'épave gratuit",
-    price: 0,
-    priceCurrency: 'EUR',
-    eligibleRegion: { '@type': 'Place', name: 'Toulouse (100 km)' }
-  }]
-})} />
+	<script type="application/ld+json" set:html={JSON.stringify({
+		'@context': 'https://schema.org',
+		'@type': 'AutomotiveBusiness',
+		name: data.name,
+		telephone: data.phoneCompact,
+		email: data.email,
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: data.address.street,
+			postalCode: data.address.postalCode,
+			addressLocality: data.address.city,
+			addressRegion: data.address.region,
+			addressCountry: 'FR'
+		},
+		areaServed: 'Toulouse et 100 km',
+		openingHours: data.hours,
+		priceRange: '€',
+		url: '/',
+		image: '/images/epaviste-hero.jpg',
+		makesOffer: [{
+			'@type': 'Offer',
+			name: "Enlèvement d'épave gratuit",
+			price: 0,
+			priceCurrency: 'EUR',
+			eligibleRegion: { '@type': 'Place', name: 'Toulouse (100 km)' }
+		}]})}></script>
 </head>
 
 <!-- Page -->
