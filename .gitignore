@@ -24,3 +24,6 @@ yarn-error.log*
 
 #pnpm files
 pnpm-debug.log*
+
+# vscode settings
+.vscode/
