@@ -3,10 +3,302 @@ import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 import "../styles/global.css";
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const data = {
+  name: "Epaviste Express Toulouse",
+  siret: "805 112 612 00033",
+  phone: "+33 7 75 72 60 36",
+  phoneCompact: "+33775726036",
+  email: "rathqueber.miky@icloud.com",
+  address: {
+    street: "45 rue de Frayssinet",
+    postalCode: "31830",
+    city: "Frouzins",
+    region: "Occitanie",
+    country: "France"
+  },
+  hours: "Mo-Su 09:00-22:00",
+  zoneCities: [
+    "Borderouge",
+    "Ramonville",
+    "Empalot",
+    "Muret",
+    "L'Union",
+    "Balma",
+    "Blagnac",
+    "Roseraie"
+  ],
+};
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<!-- Head / SEO -->
+<head>
+  <title>Épaviste Toulouse – Enlèvement gratuit en 1–2 h | {data.name}</title>
+  <meta name="description" content="Enlèvement d’épaves gratuit à Toulouse et 100 km autour. Intervention en 1–2 h, certificat de destruction (avec ou sans carte grise), zéro frais cachés. Appelez le 07 75 72 60 36." />
+  <link rel="canonical" href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Épaviste Toulouse – Enlèvement gratuit en 1–2 h" />
+  <meta property="og:description" content="Intervention rapide (1–2 h) à Toulouse et 100 km, enlèvement gratuit, certificat de destruction." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/images/epaviste-hero.png" />
+
+  <!-- JSON-LD Local Business -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'AutomotiveBusiness',
+  name: data.name,
+  telephone: data.phoneCompact,
+  email: data.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: data.address.street,
+    postalCode: data.address.postalCode,
+    addressLocality: data.address.city,
+    addressRegion: data.address.region,
+    addressCountry: 'FR'
+  },
+  areaServed: 'Toulouse et 100 km',
+  openingHours: data.hours,
+  priceRange: '€',
+  url: '/',
+  image: '/images/epaviste-hero.png',
+  makesOffer: [{
+    '@type': 'Offer',
+    name: "Enlèvement d'épave gratuit",
+    price: 0,
+    priceCurrency: 'EUR',
+    eligibleRegion: { '@type': 'Place', name: 'Toulouse (100 km)' }
+  }]
+})} />
+</head>
+
+<!-- Page -->
+<main class="min-h-screen bg-gray-50 text-gray-900">
+  <!-- Mobile sticky CTA -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 bg-white/95 backdrop-blur md:hidden">
+    <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-4 py-3">
+      <div class="text-sm">
+        <p class="font-medium">Besoin d’un épaviste ?</p>
+        <p class="text-gray-600">Intervention 1–2 h • 9h–22h</p>
+      </div>
+      <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M2.25 3.75A1.5 1.5 0 013.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 007.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 01-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/></svg>
+        Appeler
+      </a>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-emerald-600 to-emerald-700 pt-24 text-white md:pt-28">
+    <div class="absolute inset-0 opacity-10" aria-hidden="true">
+      <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none"><circle cx="100" cy="100" r="180" stroke="white"/><circle cx="600" cy="300" r="220" stroke="white"/></svg>
+    </div>
+    <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
+      <div>
+        <h1 class="text-3xl font-extrabold leading-tight md:text-5xl">Épaviste à Toulouse — enlèvement <span class="underline decoration-white/40 underline-offset-4">gratuit</span> en 1–2 h</h1>
+        <p class="mt-4 max-w-xl text-white/90 md:text-lg">Intervention 7j/7 de 9h à 22h, certificat de destruction fourni <span class="whitespace-nowrap">(avec ou sans carte grise)</span>, zéro frais cachés. Rayon d’action : Toulouse et 100 km.</p>
+        <div class="mt-6 flex flex-wrap items-center gap-3">
+          <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-emerald-700 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M2.25 3.75A1.5 1.5 0 013.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 007.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 01-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/></svg>
+            {data.phone}
+          </a>
+          <a href="#contact" class="inline-flex items-center gap-2 rounded-2xl bg-emerald-500/30 px-5 py-3 font-semibold text-white ring-1 ring-inset ring-white/30 backdrop-blur hover:bg-emerald-500/40">Demander un rappel</a>
+        </div>
+        <div class="mt-6 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
+          <div class="rounded-xl bg-white/10 px-4 py-3 ring-1 ring-white/20">RC Pro assurée</div>
+          <div class="rounded-xl bg-white/10 px-4 py-3 ring-1 ring-white/20">≈ 800 épaves / an</div>
+          <div class="rounded-xl bg-white/10 px-4 py-3 ring-1 ring-white/20">Certificat sous ~1 mois</div>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-white/30 shadow-2xl">
+          <img src="/images/epaviste-hero.png" alt="Camion dépanneuse avec grue" class="h-full w-full object-cover" loading="eager" />
+        </div>
+      </div>
+    </div>
+    <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-emerald-700 to-gray-50"></div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Nos services</h2>
+      <p class="mt-2 text-gray-600">Enlèvement d’épaves gratuit à domicile, partout autour de Toulouse (100 km).</p>
+    </header>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        [
+          { title: "Enlèvement d’épave à domicile (gratuit)", desc: "Prise en charge complète, zéro frais cachés." },
+          { title: "Remorquage / dépannage", desc: "Intervention rapide en 1–2 h selon disponibilité." },
+          { title: "Véhicules accidentés, brûlés, inondés", desc: "Traitement et dépollution réglementaires." },
+          { title: "Utilitaires & camping-cars", desc: "Sur devis, enlèvement rapide." },
+          { title: "Moto / scooter", desc: "Récupération et certificat de destruction." },
+          { title: "Poids lourds & machines agricoles", desc: "Matériel adapté, sur devis." },
+          { title: "Destruction avec certificat", desc: "Document officiel fourni par nos soins (~1 mois)." },
+        ].map((card) => (
+          <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+            <h3 class="font-semibold">{card.title}</h3>
+            <p class="mt-2 text-sm text-gray-600">{card.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Zone d'intervention -->
+  <section id="zone" class="bg-white">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <header class="mb-8">
+        <h2 class="text-2xl font-bold md:text-3xl">Zone d’intervention</h2>
+        <p class="mt-2 text-gray-600">Toulouse et jusqu’à <strong>100 km</strong> autour. Hors zone : frais de déplacement <strong>20–100 €</strong> selon distance.</p>
+      </header>
+      <div class="grid gap-8 md:grid-cols-2">
+        <ul class="grid grid-cols-2 gap-2 text-sm md:grid-cols-3">
+          {data.zoneCities.map((c) => (<li class="rounded-xl bg-gray-50 px-3 py-2 ring-1 ring-gray-200">{c}</li>))}
+        </ul>
+        <div class="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200">
+          <h3 class="font-semibold">Adresse</h3>
+          <p class="mt-2 text-gray-700">{data.address.street}, {data.address.postalCode} {data.address.city}</p>
+          <p class="text-sm text-gray-600">Basés près de Toulouse — déplacements rapides sur toute l’aire toulousaine.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tarifs & conditions -->
+  <section id="tarifs" class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Tarifs & conditions</h2>
+    </header>
+    <div class="grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <h3 class="font-semibold">Ce qui est <span class="text-emerald-700">gratuit</span></h3>
+        <ul class="mt-3 space-y-2 text-sm text-gray-700">
+          <li>• Enlèvement d’épave sur Toulouse et 100 km.</li>
+          <li>• Déplacement et prise en charge complète.</li>
+          <li>• Certificat de destruction inclus.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <h3 class="font-semibold">Frais éventuels</h3>
+        <ul class="mt-3 space-y-2 text-sm text-gray-700">
+          <li>• Hors zone (au-delà de 100 km) : 20–100 € selon distance.</li>
+          <li>• Cas particuliers lourds (poids lourds, machines agricoles) : sur devis.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <h3 class="font-semibold">Documents requis</h3>
+        <ul class="mt-3 space-y-2 text-sm text-gray-700">
+          <li>• Carte grise (si possible, intervention possible <em>sans</em> également).</li>
+          <li>• Pièce d’identité.</li>
+          <li>• Clés du véhicule.</li>
+        </ul>
+      </div>
+      <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+        <h3 class="font-semibold">Délais & engagements</h3>
+        <ul class="mt-3 space-y-2 text-sm text-gray-700">
+          <li>• Intervention en <strong>1–2 h</strong> (selon disponibilité).</li>
+          <li>• Enlèvement sur place en moins de <strong>20 min</strong>.</li>
+          <li>• Ponctualité, respect de l’environnement, suivi administratif.</li>
+          <li>• Certificat sous ~1 mois.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Processus -->
+  <section id="process" class="bg-gray-50">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <header class="mb-8">
+        <h2 class="text-2xl font-bold md:text-3xl">Comment ça marche ?</h2>
+      </header>
+      <ol class="grid gap-6 sm:grid-cols-3">
+        <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">1</span><p class="mt-3 font-semibold">Appelez {data.phone}</p><p class="mt-1 text-sm text-gray-600">Créneau d’appel privilégié : 9h–22h.</p></li>
+        <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">2</span><p class="mt-3 font-semibold">RDV rapide</p><p class="mt-1 text-sm text-gray-600">Intervention en 1–2 h selon votre emplacement.</p></li>
+        <li class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200"><span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-600 font-bold text-white">3</span><p class="mt-3 font-semibold">Enlèvement & papiers</p><p class="mt-1 text-sm text-gray-600">Enlèvement &lt; 20 min, certificat de destruction fourni.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Avis -->
+  <section id="avis" class="mx-auto max-w-6xl px-6 py-16">
+    <header class="mb-8">
+      <h2 class="text-2xl font-bold md:text-3xl">Avis clients</h2>
+      <p class="mt-2 text-gray-600">Ajoutez ici vos témoignages (objectif : 4.8★ / 5).</p>
+    </header>
+
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        [
+          { name: "Paul D.", text: "Intervention super rapide, enlèvement gratuit comme annoncé." },
+          { name: "Sonia R.", text: "Très pro et papier de destruction reçu, je recommande." },
+          { name: "Imad K.", text: "Arrivés en 1 h, équipe ponctuelle, merci !" },
+        ].map((r) => (
+          <figure class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
+            <div class="flex items-center gap-2 text-amber-500" aria-label="5 étoiles">★★★★★</div>
+            <blockquote class="mt-3 text-sm text-gray-700">“{r.text}”</blockquote>
+            <figcaption class="mt-3 text-xs text-gray-500">{r.name}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="bg-white">
+    <div class="mx-auto max-w-6xl px-6 py-16">
+      <header class="mb-8">
+        <h2 class="text-2xl font-bold md:text-3xl">Contact</h2>
+        <p class="mt-2 text-gray-600">Réponse rapide 9h–22h. Vous pouvez aussi nous appeler directement.</p>
+      </header>
+
+      <div class="grid gap-8 md:grid-cols-2">
+        <div class="rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200">
+          <h3 class="font-semibold">Coordonnées</h3>
+          <ul class="mt-3 space-y-2 text-sm text-gray-700">
+            <li>📞 <a class="font-medium text-emerald-700 hover:underline" href={`tel:${data.phoneCompact}`}>{data.phone}</a></li>
+            <li>✉️ <a class="hover:underline" href={`mailto:${data.email}`}>{data.email}</a></li>
+            <li>📍 {data.address.street}, {data.address.postalCode} {data.address.city}</li>
+            <li>🕘 9h–22h — 7j/7</li>
+            <li>🪪 SIRET : {data.siret}</li>
+            <li>✅ RC Pro assurée</li>
+          </ul>
+        </div>
+        <form class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200" method="post" netlify>
+          <input type="hidden" name="form-name" value="contact-epaviste" />
+          <div class="grid gap-4">
+            <label class="block">
+              <span class="text-sm font-medium">Nom</span>
+              <input class="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" type="text" name="name" required />
+            </label>
+            <label class="block">
+              <span class="text-sm font-medium">Téléphone</span>
+              <input class="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" type="tel" name="phone" required />
+            </label>
+            <label class="block">
+              <span class="text-sm font-medium">Message</span>
+              <textarea class="mt-1 min-h-[120px] w-full rounded-xl border border-gray-300 px-3 py-2 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-200" name="message" placeholder="Décrivez votre véhicule et l’emplacement…"></textarea>
+            </label>
+            <button type="submit" class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300">Envoyer la demande</button>
+          </div>
+          <p class="mt-3 text-xs text-gray-500">En envoyant ce formulaire, vous acceptez notre politique de confidentialité.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 bg-gray-50">
+    <div class="mx-auto max-w-6xl px-6 py-10 text-sm text-gray-600">
+      <div class="flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
+        <p>© {new Date().getFullYear()} {data.name}. Tous droits réservés.</p>
+        <p class="flex items-center gap-2"><span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-emerald-800"> <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor' class='h-4 w-4'><path d='M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z'/></svg> Écologie</span> Respect de l’environnement • Dépollution réglementaire</p>
+      </div>
+    </div>
+  </footer>
+</main>
+
