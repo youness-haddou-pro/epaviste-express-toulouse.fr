@@ -74,3 +74,42 @@ const { data } = Astro.props as { data: Data };
   </div>
   <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-emerald-700 to-gray-50"></div>
 </section>
+
+<style is:global>
+/* Shine sweep (utilisé sur :after des cartes) */
+@keyframes shine {
+  from { transform: translateX(-150%) skewX(-12deg); }
+  to   { transform: translateX(150%)  skewX(-12deg); }
+}
+
+/* Scroll reveal (optionnel) */
+.reveal {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.reveal.is-inview {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; transform: none; }
+}
+</style>
+
+<script>
+  const els = document.querySelectorAll('.reveal, .grid [class*="group"]');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-inview');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  els.forEach(el => {
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+</script>
