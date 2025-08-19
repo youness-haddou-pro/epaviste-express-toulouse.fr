@@ -1,23 +1,97 @@
-<section id="services" class="mx-auto max-w-6xl px-6 py-16">
-  <header class="mb-8">
-    <h2 class="text-2xl font-bold md:text-3xl">Nos services</h2>
+---
+import Icon from './Icon.astro'; // même dossier que Services.astro
+
+const services = [
+  { title: "Enlèvement d’épave à domicile (gratuit)", desc: "Prise en charge complète, zéro frais cachés.", icon: "truck" },
+  { title: "Remorquage / dépannage", desc: "Intervention rapide en 1–2 h selon disponibilité.", icon: "tow" },
+  { title: "Véhicules accidentés, brûlés, inondés", desc: "Traitement et dépollution réglementaires.", icon: "shield" },
+  { title: "Utilitaires & camping-cars", desc: "Sur devis, enlèvement rapide.", icon: "van" },
+  { title: "Moto / scooter", desc: "Récupération et certificat de destruction.", icon: "moto" },
+  { title: "Poids lourds & machines agricoles", desc: "Matériel adapté, sur devis.", icon: "tractor" },
+  { title: "Destruction avec certificat", desc: "Document officiel fourni par nos soins (~1 mois).", icon: "doc" },
+];
+---
+
+<section id="services" class="relative mx-auto max-w-6xl px-6 py-16">
+  <!-- décor discret -->
+  <div class="pointer-events-none absolute inset-0 -z-10 opacity-40 [mask-image:radial-gradient(50%_50%_at_50%_0%,black,transparent)]">
+    <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-emerald-100/60 to-transparent"></div>
+  </div>
+
+  <header class="mb-10">
+    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Nos services</h2>
     <p class="mt-2 text-gray-600">Enlèvement d’épaves gratuit à domicile, partout autour de Toulouse (100 km).</p>
   </header>
 
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-    {[
-      { title: "Enlèvement d’épave à domicile (gratuit)", desc: "Prise en charge complète, zéro frais cachés." },
-      { title: "Remorquage / dépannage", desc: "Intervention rapide en 1–2 h selon disponibilité." },
-      { title: "Véhicules accidentés, brûlés, inondés", desc: "Traitement et dépollution réglementaires." },
-      { title: "Utilitaires & camping-cars", desc: "Sur devis, enlèvement rapide." },
-      { title: "Moto / scooter", desc: "Récupération et certificat de destruction." },
-      { title: "Poids lourds & machines agricoles", desc: "Matériel adapté, sur devis." },
-      { title: "Destruction avec certificat", desc: "Document officiel fourni par nos soins (~1 mois)." },
-    ].map((card) => (
-      <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-        <h3 class="font-semibold">{card.title}</h3>
-        <p class="mt-2 text-sm text-gray-600">{card.desc}</p>
+    {services.map((card, i) => (
+      <article
+        class="service-card reveal group relative cursor-pointer overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200
+               transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-xl focus-within:shadow-xl"
+        style={`--delay:${i * 80}ms`}
+      >
+        <!-- bordure gradient au hover -->
+        <div
+          class="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style="mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; padding:1px; background:linear-gradient(120deg, rgba(16,185,129,.5), rgba(16,185,129,.15), rgba(16,185,129,.5));"
+        ></div>
+
+        <!-- spotlight qui suit la souris -->
+        <div
+          class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          style="background: radial-gradient(320px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.10), transparent 40%);"
+        ></div>
+
+        <div class="relative z-10 flex items-start gap-4">
+          <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 transition-transform duration-300 group-hover:scale-110">
+            <Icon name={card.icon} class="h-6 w-6" />
+          </div>
+          <div>
+            <h3 class="font-semibold tracking-tight text-gray-900">{card.title}</h3>
+            <p class="mt-2 text-sm text-gray-600">{card.desc}</p>
+          </div>
+        </div>
       </article>
     ))}
   </div>
 </section>
+
+<style is:global>
+/* reveal au scroll + délai via --delay */
+.reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; transition-delay: var(--delay, 0ms); }
+.reveal.is-inview { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .service-card { transition: none; }
+}
+</style>
+
+<script>
+  // Reveal au scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('is-inview');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Spotlight : suit la souris
+  const cards = document.querySelectorAll('.service-card');
+  cards.forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      card.style.setProperty('--x', x + '%');
+      card.style.setProperty('--y', y + '%');
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.removeProperty('--x');
+      card.style.removeProperty('--y');
+    });
+  });
+</script>
