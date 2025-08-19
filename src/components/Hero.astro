@@ -5,11 +5,11 @@ interface Data {
 }
 const { data } = Astro.props as { data: Data };
 ---
-<section class="relative overflow-hidden bg-gradient-to-b from-emerald-600 to-emerald-700 pt-24 text-white md:pt-28">
+<section class="relative overflow-hidden bg-gradient-to-b from-emerald-600 to-emerald-700 text-white">
   <div class="absolute inset-0 opacity-10" aria-hidden="true">
     <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none"><circle cx="100" cy="100" r="180" stroke="white"/><circle cx="600" cy="300" r="220" stroke="white"/></svg>
   </div>
-  <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24">
+  <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24 relative top-[-50px]">
     <div>
       <h1 class="text-3xl font-extrabold leading-tight md:text-5xl">
         Épaviste à Toulouse — enlèvement <span class="underline decoration-white/40 underline-offset-4">gratuit</span> en 1–2 h
