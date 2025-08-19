@@ -1,0 +1,204 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getEntryBySlug } from 'astro:content';
+import { data as site } from '../../data/siteData';
+
+export async function getStaticPaths() {
+  const all = await import('astro:content').then(m => m.getCollection('blog', ({ data }) => !data.draft));
+  return all.map((entry) => ({ params: { slug: entry.slug } }));
+}
+
+const { slug } = Astro.params;
+if (!slug) throw new Error('slug manquant');
+
+const post = await getEntryBySlug('blog', slug);
+if (!post) throw new Error(`Article introuvable: ${slug}`);
+
+const { Content, headings } = await post.render();
+
+// SEO
+const title = `${post.data.title} | ${site.name}`;
+const description = post.data.description;
+const ogImage = post.data.heroImage?.src ?? '/images/epaviste-hero.png';
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description,
+  image: ogImage,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  author: { '@type': 'Person', name: post.data.author },
+  publisher: {
+    '@type': 'LocalBusiness',
+    name: site.name,
+    telephone: site.phoneCompact,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.address.street,
+      postalCode: site.address.postalCode,
+      addressLocality: site.address.city,
+      addressRegion: site.address.region,
+      addressCountry: 'FR',
+    },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': `/blog/${slug}/` },
+};
+
+// Indentation TOC “Tailwind-safe”
+function tocIndent(depth: number) {
+  if (depth <= 2) return '';
+  if (depth === 3) return 'pl-4';
+  if (depth === 4) return 'pl-8';
+  return 'pl-12';
+}
+---
+
+<Layout title={title} description={description} ogImage={ogImage} jsonld={jsonld} lang="fr">
+  <!-- barre de progression lecture -->
+  <div id="read-progress" class="fixed left-0 top-0 z-40 h-1 w-0 bg-emerald-600 transition-[width] duration-150"></div>
+
+  <article id="post" class="relative mx-auto max-w-3xl px-6 py-16">
+    <!-- déco discrète -->
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-emerald-100/60 to-transparent opacity-70"></div>
+
+    <!-- Nav retours -->
+    <nav class="mb-6 flex flex-wrap items-center gap-3 text-sm text-gray-700">
+      <a href="/" class="inline-flex items-center gap-2 rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Accueil
+      </a>
+      <span aria-hidden="true">/</span>
+      <a href="/blog/" class="inline-flex items-center gap-2 rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        Blog
+      </a>
+    </nav>
+
+    <!-- En-tête -->
+    <header class="mb-8 reveal" style="--delay:0ms">
+      <p class="text-sm text-zinc-500">
+        <time datetime={post.data.date.toISOString()}>{post.data.date.toLocaleDateString('fr-FR')}</time>
+        {post.data.ville && <> • {post.data.ville}</>}
+        {post.data.readingTime && <> • {post.data.readingTime}</>}
+      </p>
+      <h1 class="mt-2 text-3xl font-bold tracking-tight md:text-4xl">{post.data.title}</h1>
+      {description && <p class="mt-2 text-zinc-600">{description}</p>}
+    </header>
+
+    {post.data.heroImage && (
+      <div class="reveal group relative mb-8 overflow-hidden rounded-2xl ring-1 ring-gray-200" style="--delay:80ms">
+        <!-- spotlight -->
+        <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+             style="background: radial-gradient(520px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
+        <img
+          src={post.data.heroImage.src}
+          width={post.data.heroImage.width}
+          height={post.data.heroImage.height}
+          alt={post.data.heroAlt ?? post.data.title}
+          class="block w-full transition duration-300 group-hover:scale-[1.01]"
+          loading="eager"
+        />
+      </div>
+    )}
+
+    {/* Sommaire (si utile) */}
+    {headings.length > 3 && (
+      <nav class="reveal mb-8 rounded-2xl bg-white p-5 ring-1 ring-gray-200" style="--delay:120ms">
+        <strong class="mb-2 block text-sm">Sommaire</strong>
+        <ul class="space-y-1 text-sm">
+          {headings.map((h) => (
+            <li class={tocIndent(h.depth)}>
+              <a href={`#${h.slug}`} class="text-gray-700 underline decoration-emerald-300 underline-offset-4 hover:text-emerald-700">
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    )}
+
+    <!-- Contenu -->
+    <div class="reveal prose prose-zinc max-w-none prose-a:text-emerald-700 hover:prose-a:text-emerald-800 prose-headings:scroll-mt-24" style="--delay:160ms">
+      <Content />
+    </div>
+
+    {/* Bloc local contextuel */}
+    {post.data.ville && (
+      <aside class="reveal mt-10 rounded-2xl bg-white p-6 ring-1 ring-gray-200" style="--delay:200ms">
+        <h2 class="text-xl font-semibold">Interventions à {post.data.ville}</h2>
+        <p class="mt-1 text-zinc-600">Enlèvement gratuit en 1–2 h à {post.data.ville} et 100 km autour.</p>
+        <a href={`tel:${site.phoneCompact}`} class="mt-3 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Appeler {site.phone}
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M2.25 3.75A1.5 1.5 0 013.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 007.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 01-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/></svg>
+        </a>
+      </aside>
+    )}
+
+    <!-- Nav retours (bas) -->
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <a href="/blog/" class="inline-flex items-center gap-2 rounded-2xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+        ← Retour au blog
+      </a>
+      <a href="/" class="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+        ← Accueil
+      </a>
+    </div>
+  </article>
+
+  <!-- JSON-LD Article -->
+  <script type="application/ld+json">
+    {JSON.stringify(jsonld)}
+  </script>
+</Layout>
+
+<style is:global>
+/* reveal au scroll + délai via --delay */
+.reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; transition-delay: var(--delay, 0ms); }
+.reveal.is-inview { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  #read-progress { display: none; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+</style>
+
+<script>
+  // Reveal au scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-inview'); io.unobserve(e.target); } });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // Spotlight sur l'image de couverture
+  const hero = document.querySelector('#post .group');
+  if (hero) {
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width) * 100;
+      const y = ((e.clientY - r.top) / r.height) * 100;
+      hero.style.setProperty('--x', x + '%');
+      hero.style.setProperty('--y', y + '%');
+    });
+    hero.addEventListener('mouseleave', () => {
+      hero.style.removeProperty('--x'); hero.style.removeProperty('--y');
+    });
+  }
+
+  // Barre de progression lecture
+  const progress = document.getElementById('read-progress');
+  const article = document.getElementById('post');
+  const onScroll = () => {
+    if (!progress || !article) return;
+    const rect = article.getBoundingClientRect();
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const start = article.offsetTop;
+    const end = start + article.offsetHeight - window.innerHeight;
+    const ratio = Math.min(Math.max((scrollTop - start) / Math.max(end - start, 1), 0), 1);
+    progress.style.width = (ratio * 100) + '%';
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+</script>
