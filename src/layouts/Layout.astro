@@ -7,6 +7,7 @@ export interface Props {
   lang?: string;
 }
 const { title, description, ogImage = "/images/epaviste-hero.png", jsonld, lang = "fr" } = Astro.props;
+const canonical = Astro.url?.href ?? '/';
 
 import "../styles/global.css";
 import Base from "./Base.astro";
@@ -19,7 +20,7 @@ import Base from "./Base.astro";
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href="/" />
+    <link rel="canonical" href={canonical}/>
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
