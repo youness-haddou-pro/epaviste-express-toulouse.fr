@@ -5,20 +5,34 @@ interface Data {
 }
 const { data } = Astro.props as { data: Data };
 ---
-<section class="relative overflow-hidden bg-gradient-to-b from-emerald-600 to-emerald-700 text-white">
-  <div class="absolute inset-0 opacity-10" aria-hidden="true">
-    <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" fill="none"><circle cx="100" cy="100" r="180" stroke="white"/><circle cx="600" cy="300" r="220" stroke="white"/></svg>
+
+<section class="relative overflow-hidden text-white">
+  <!-- Image de fond en couverture -->
+  <div class="absolute inset-0">
+    <img 
+      src="/images/hero-pro.jpg" 
+      alt="Intervention professionnelle d’épaviste à Toulouse"
+      class="h-full w-full object-cover"
+      width="1920" height="1080" loading="eager" decoding="async"
+    />
+    <!-- Overlay sombre pour lisibilité -->
+    <div class="absolute inset-0 bg-black/50"></div>
   </div>
-  <div class="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-2 md:py-24 relative top-[-50px]">
-    <div>
+
+  <!-- Contenu -->
+  <div class="mx-auto max-w-6xl px-6 py-16 md:py-24 relative top-[-50px]">
+    <div class="max-w-2xl">
       <h1 class="text-3xl font-extrabold leading-tight md:text-5xl">
-        Épaviste à Toulouse — enlèvement <span class="underline decoration-white/40 underline-offset-4">gratuit</span> en 1–2 h
+        Épaviste à Toulouse — enlèvement 
+        <span class="underline decoration-white/40 underline-offset-4">gratuit</span> en 1–2 h
       </h1>
       <p class="mt-4 max-w-xl text-white/90 md:text-lg">
         Intervention 7j/7 de 9h à 22h, certificat de destruction fourni <span class="whitespace-nowrap">(avec ou sans carte grise)</span>, zéro frais cachés. Rayon d’action : Toulouse et 100 km.
       </p>
+
+      <!-- Boutons -->
       <div class="mt-6 flex flex-wrap items-center gap-3">
-        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-emerald-700 shadow-lg shadow-black/10 transition hover:-translate-y-0.5 hover:shadow-xl">
+        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 font-semibold text-emerald-700 shadow-lg shadow-black/20 transition hover:-translate-y-0.5 hover:shadow-xl">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M2.25 3.75A1.5 1.5 0 013.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 007.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 01-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/></svg>
           {data.phone}
         </a>
@@ -27,89 +41,29 @@ const { data } = Astro.props as { data: Data };
         </a>
       </div>
 
+      <!-- Cartes -->
       <div class="mt-6 grid grid-cols-1 gap-3 text-sm sm:grid-cols-3">
         <!-- CARD 1 -->
-        <div class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none motion-reduce:transform-none cursor-pointer">
-          <span class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-            <span class="absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 motion-safe:animate-[shine_750ms_ease]"></span>
-          </span>
-          <svg class="h-5 w-5 opacity-90 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 motion-reduce:transition-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.78-10.28a.75.75 0 00-1.06-1.06L9 10.38 7.28 8.66a.75.75 0 10-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z" clip-rule="evenodd"/>
-          </svg>
-          <span class="ml-3 tracking-wide">RC Pro assurée</span>
+        <div class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/30 cursor-pointer">
+          <svg class="h-5 w-5 opacity-90 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.78-10.28a.75.75 0 00-1.06-1.06L9 10.38 7.28 8.66a.75.75 0 10-1.06 1.06l2.25 2.25a.75.75 0 001.06 0l4.25-4.25z" clip-rule="evenodd"/></svg>
+          RC Pro assurée
         </div>
 
         <!-- CARD 2 -->
-        <div
-          class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none motion-reduce:transform-none cursor-pointer">
-          <span class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-            <span class="absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 motion-safe:animate-[shine_750ms_ease]"></span>
-          </span>
-          <svg class="h-5 w-5 opacity-90 transition-transform duration-300 group-hover:-rotate-3 group-hover:scale-110 motion-reduce:transition-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 12l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span class="ml-3 tracking-wide">≈ 800 épaves / an</span>
+        <div class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/30 cursor-pointer">
+          <svg class="h-5 w-5 opacity-90 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 12l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          ≈ 800 épaves / an
         </div>
 
         <!-- CARD 3 -->
-        <div
-          class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white motion-reduce:transition-none motion-reduce:transform-none cursor-pointer">
-          <span class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
-            <span class="absolute inset-y-0 -left-1/3 w-1/3 skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-opacity duration-200 group-hover:opacity-100 motion-safe:animate-[shine_750ms_ease]"></span>
-          </span>
-          <svg class="h-5 w-5 opacity-90 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110 motion-reduce:transition-none" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
-            <path d="M12 8v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          <span class="ml-3 tracking-wide">Certificat sous ~1 mois</span>
+        <div class="group relative flex items-center justify-center rounded-2xl bg-white/10 px-4 py-3 uppercase text-xs font-medium ring-1 ring-white/20 transition-all duration-300 hover:-translate-y-1 hover:bg-white/15 hover:shadow-xl hover:shadow-black/30 cursor-pointer">
+          <svg class="h-5 w-5 opacity-90 mr-2 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Certificat sous ~1 mois
         </div>
       </div>
     </div>
-    <div class="relative">
-      <div class="aspect-[4/3] overflow-hidden rounded-3xl ring-1 ring-white/30 shadow-2xl">
-        <img src="/images/epaviste-hero.png" alt="Camion dépanneuse avec grue" class="h-full w-full object-cover" loading="eager" />
-      </div>
-    </div>
   </div>
-  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-emerald-700 to-gray-50"></div>
+
+  <!-- Dégradé bas de section -->
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-black/20 to-gray-50"></div>
 </section>
-
-<style is:global>
-/* Shine sweep (utilisé sur :after des cartes) */
-@keyframes shine {
-  from { transform: translateX(-150%) skewX(-12deg); }
-  to   { transform: translateX(150%)  skewX(-12deg); }
-}
-
-/* Scroll reveal (optionnel) */
-.reveal {
-  opacity: 0;
-  transform: translateY(8px);
-  transition: opacity .5s ease, transform .5s ease;
-}
-.reveal.is-inview {
-  opacity: 1;
-  transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none; transform: none; }
-}
-</style>
-
-<script>
-  const els = document.querySelectorAll('.reveal, .grid [class*="group"]');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('is-inview');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.2 });
-
-  els.forEach(el => {
-    el.classList.add('reveal');
-    io.observe(el);
-  });
-</script>
