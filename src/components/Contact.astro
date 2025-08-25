@@ -21,7 +21,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
     <div class="grid gap-8 md:grid-cols-2">
       <!-- Carte coordonnées -->
       <aside
-        class="contact-card reveal group relative overflow-hidden rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200 transition duration-300 hover:shadow-xl"
+        class="contact-card reveal group relative overflow-hidden rounded-2xl bg-gray-50 p-6 ring-1 ring-gray-200 transition duration-300 hover:shadow-xl cursor-pointer"
         style="--delay:0ms"
       >
         <!-- bordure gradient -->
@@ -44,7 +44,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
             </div>
             <div class="flex shrink-0 items-center gap-2">
               <a href={`tel:${data.phoneCompact}`} class="rounded-lg bg-emerald-600 px-2 py-1 text-xs font-semibold text-white hover:bg-emerald-700">Appeler</a>
-              <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100" data-copy={data.phone}>Copier</button>
+              <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100 cursor-pointer" data-copy={data.phone}>Copier</button>
             </div>
           </li>
 
@@ -56,7 +56,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
               </svg>
               <a class="truncate hover:underline" href={`mailto:${data.email}`}>{data.email}</a>
             </div>
-            <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100" data-copy={data.email}>Copier</button>
+            <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100 cursor-pointer" data-copy={data.email}>Copier</button>
           </li>
 
           <!-- Adresse -->
@@ -69,7 +69,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
             </div>
             <div class="flex shrink-0 items-center gap-2">
               <a href={mapsHref} target="_blank" rel="noopener" class="rounded-lg bg-gray-900 px-2 py-1 text-xs font-semibold text-white hover:-translate-y-0.5 hover:shadow">Maps</a>
-              <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100" data-copy={addressFull}>Copier</button>
+              <button type="button" class="copy rounded-lg px-2 py-1 text-xs font-semibold text-gray-700 ring-1 ring-gray-300 hover:bg-gray-100 cursor-pointer" data-copy={addressFull}>Copier</button>
             </div>
           </li>
 
@@ -89,7 +89,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
 
       <!-- Formulaire Netlify -->
       <form
-        class="form-card reveal group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition duration-300 hover:shadow-xl"
+        class="form-card reveal group relative overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition duration-300 hover:shadow-xl cursor-pointer"
         method="POST"
         name="contact-epaviste"
         data-netlify="true"
@@ -138,7 +138,7 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
           </label>
 
           <button type="submit"
-                  class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  class="inline-flex items-center justify-center rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 cursor-pointer">
             Envoyer la demande
           </button>
         </fieldset>
