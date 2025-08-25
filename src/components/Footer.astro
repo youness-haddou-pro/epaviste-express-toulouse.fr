@@ -1,10 +1,132 @@
 ---
 const { name } = Astro.props as { name: string };
 ---
-<footer class="border-t border-gray-200 bg-gray-50">
-  <div class="mx-auto max-w-6xl px-6 py-10 text-sm text-gray-600">
+
+<footer class="relative overflow-hidden border-t border-gray-200 bg-gray-50">
+  <!-- Décor discret (feuilles vectorielles) -->
+  <div class="pointer-events-none absolute inset-0 opacity-10" aria-hidden="true">
+    <svg class="absolute -left-20 -top-10 h-64 w-64 animate-sway" viewBox="0 0 200 200" fill="none">
+      <path d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z" stroke="currentColor" class="text-emerald-700" stroke-width="2" fill="url(#g1)"/>
+      <defs>
+        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <svg class="absolute -right-16 bottom-0 h-72 w-72 animate-sway-rev" viewBox="0 0 200 200" fill="none">
+      <path d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z" stroke="currentColor" class="text-teal-700" stroke-width="2" fill="url(#g2)"/>
+      <defs>
+        <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-6xl px-6 pt-12 pb-6">
+    <!-- Bloc Engagement écolo -->
+    <section aria-labelledby="eco-title" class="relative rounded-3xl bg-white/70 p-6 ring-1 ring-gray-200 backdrop-blur">
+      <div class="grid gap-8 md:grid-cols-3">
+        <!-- Colonne texte + points forts -->
+        <div>
+          <h2 id="eco-title" class="inline-flex items-center gap-2 text-lg font-bold text-emerald-900">
+            <span class="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 ring-1 ring-emerald-200">
+              <!-- icône feuille animée -->
+              <svg class="h-5 w-5 text-emerald-700 animate-breathe" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 3c5 0 9 4 9 9 0 6-7 9-9 9S3 18 3 12 7 3 12 3zm1.5 5C9 8 6 11 6 14c0 2 2 4 4 4 3 0 6-3 6-6 0-2-2-4-2.5-4z"/>
+              </svg>
+            </span>
+            Engagement écologique
+          </h2>
+
+          <p class="mt-3 text-sm leading-relaxed text-gray-700">
+            Nous intervenons en respect des normes de dépollution et de traçabilité. Les véhicules sont dirigés vers
+            des centres agréés pour un traitement responsable.
+          </p>
+
+          <ul class="mt-5 space-y-3 text-sm text-gray-700">
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
+                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M9 12l2 2 4-4-1.5-1.5L11 11l-1.5-1.5L8 11l1 1z"/>
+                </svg>
+              </span>
+              Dépollution réglementaire avant recyclage (fluides, batteries, pneus).
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
+                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l4 7h7l-5.5 4 2.5 8-8-5-8 5 2.5-8L1 9h7z"/></svg>
+              </span>
+              Traçabilité complète : certificat de destruction délivré par un centre agréé.
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
+                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor"><path d="M7 11h10v2H7z"/></svg>
+              </span>
+              Priorité au réemploi des pièces lorsque c’est possible.
+            </li>
+          </ul>
+
+          <!-- Badges engagement -->
+          <div class="mt-5 flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-xs font-medium text-emerald-800 ring-1 ring-emerald-200">
+              <span class="h-2 w-2 animate-ping rounded-full bg-emerald-600"></span> Dépollution
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-teal-100 px-2 py-1 text-xs font-medium text-teal-800 ring-1 ring-teal-200">
+              ♻️ Recyclage
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-lime-100 px-2 py-1 text-xs font-medium text-lime-800 ring-1 ring-lime-200">
+              🔒 Traçabilité
+            </span>
+          </div>
+        </div>
+
+        <!-- Colonne visuel 1 -->
+        <div class="group relative overflow-hidden rounded-2xl ring-1 ring-gray-200 aspect-[16/9] md:aspect-[4/3]">
+          <picture class="absolute inset-0">
+            <!-- <source srcset="/images/eco/traitement.avif" type="image/avif" />
+            <source srcset="/images/eco/traitement.webp" type="image/webp" /> -->
+            <img
+              src="/images/eco/traitement.png"
+              alt="Traitement et dépollution en centre agréé"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] block"
+              loading="lazy" decoding="async" width="1600" height="1200"
+            />
+          </picture>
+
+          <!-- Overlay titre -->
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 rounded-lg bg-white/80 px-3 py-1 text-xs font-semibold text-gray-700 ring-1 ring-white/60 backdrop-blur">
+            Centre agréé VHU
+          </div>
+        </div>
+
+
+        <!-- Colonne visuel 2 -->
+        <div class="group relative overflow-hidden rounded-2xl ring-1 ring-gray-200 aspect-[3/2]">
+          <picture class="absolute inset-0">
+            <!-- <source srcset="/images/eco/reemploi.avif" type="image/avif" />
+            <source srcset="/images/eco/reemploi.webp" type="image/webp" /> -->
+            <img
+              src="/images/eco/reemploi.png"
+              alt="Réemploi et tri des pièces"
+              class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03] block"
+              loading="lazy" decoding="async" width="1600" height="1066"
+            />
+          </picture>
+
+          <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+          <div class="absolute bottom-3 left-3 rounded-lg bg-white/80 px-3 py-1 text-xs font-semibold text-gray-700 ring-1 ring-white/60 backdrop-blur">
+            Réemploi des pièces
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Ligne 1 : copyright + liens légaux -->
-    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+    <div class="mt-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-gray-600">
       <p>© {new Date().getFullYear()} {name}. Tous droits réservés.</p>
 
       <nav class="flex flex-wrap items-center gap-x-4 gap-y-2" aria-label="Liens légaux">
@@ -17,16 +139,18 @@ const { name } = Astro.props as { name: string };
         <a href="/blog/rss.xml" class="hover:underline" rel="alternate" type="application/rss+xml">RSS</a>
       </nav>
     </div>
-
-    <!-- Ligne 2 : engagement écolo -->
-    <p class="mt-4 flex items-center gap-2">
-      <span class="inline-flex items-center gap-1 rounded-full bg-emerald-100 px-2 py-1 text-emerald-800">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-4 w-4">
-          <path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 14h-2v-2h2v2zm0-4h-2V6h2v6z"/>
-        </svg>
-        Écologie
-      </span>
-      Respect de l’environnement • Dépollution réglementaire
-    </p>
   </div>
 </footer>
+
+<style is:global>
+/* Animations très légères et accessibles */
+@keyframes sway { 0%{ transform: rotate(-2deg) translateY(0);} 50%{ transform: rotate(2deg) translateY(2px);} 100%{ transform: rotate(-2deg) translateY(0);} }
+@keyframes sway-rev { 0%{ transform: rotate(2deg) translateY(0);} 50%{ transform: rotate(-2deg) translateY(2px);} 100%{ transform: rotate(2deg) translateY(0);} }
+@keyframes breathe { 0%{ transform: scale(1);} 50%{ transform: scale(1.05);} 100%{ transform: scale(1);} }
+.animate-sway { animation: sway 8s ease-in-out infinite; }
+.animate-sway-rev { animation: sway-rev 9s ease-in-out infinite; }
+.animate-breathe { animation: breathe 3.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .animate-sway, .animate-sway-rev, .animate-breathe { animation: none !important; }
+}
+</style>
