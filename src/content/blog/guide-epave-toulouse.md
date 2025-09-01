@@ -9,7 +9,7 @@ ville: "Toulouse"
 region: "Occitanie"
 author: "Équipe Épaviste"
 readingTime: "6 min"
-heroImage: ../../assets/images/blog/epave-toulouse.jpg
+heroImage: ../../assets/images/blog/epave-toulouse.png
 heroAlt: "Dépanneuse emportant une épave à Toulouse"
 draft: false
 ---
