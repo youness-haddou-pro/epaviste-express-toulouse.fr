@@ -397,3 +397,55 @@
 	background: #ecfdf5; /* emerald-50 */
 	font-weight: 600;
 }
+
+/* ===========================
+MEDIAS (images, vidéos) — version + compacte
+=========================== */
+
+/* Base: 100% en mobile, centrées */
+.blog-prose :where(img, video, figure) {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	margin: 1rem auto;
+	border-radius: 0.75rem;
+}
+
+/* Desktop: ne pas prendre toute la colonne */
+@media (min-width: 768px) {
+	.blog-prose :where(img, video, figure) {
+		max-width: 640px; /* ← taille cible “agréable” */
+	}
+}
+@media (min-width: 1280px) {
+	.blog-prose :where(img, video, figure) {
+		max-width: 700px; /* ← un peu plus large sur très grands écrans */
+	}
+}
+
+/* Garantir bon rendu des <img> nus */
+.blog-prose img {
+	height: auto;
+	object-fit: contain;
+}
+
+/* Légende propre */
+.blog-prose figure > img {
+	margin: 0;
+}
+.blog-prose figcaption {
+	font-size: 0.9rem;
+	color: #71717a;
+	margin-top: 0.4rem;
+	text-align: center;
+	line-height: 1.4;
+}
+
+/* (Optionnel) variantes à activer au besoin dans le HTML/MD si tu peux ajouter des classes */
+.blog-prose img.is-sm,
+.blog-prose figure.is-sm {
+	max-width: 520px;
+}
+.blog-prose .is-wide {
+	max-width: 820px;
+}

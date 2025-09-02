@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { Picture } from 'astro:assets';           // ← remplace Image par Picture
 import { getEntryBySlug } from 'astro:content';
 import { data as site } from '../../data/siteData';
 import '../../styles/blog.css';
@@ -85,13 +86,18 @@ const jsonld = {
         <!-- spotlight -->
         <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
              style="background: radial-gradient(520px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
-        <img
-          src={post.data.heroImage.src}
-          width={post.data.heroImage.width}
-          height={post.data.heroImage.height}
+
+        <Picture
+          src={post.data.heroImage}                              /* objet image du frontmatter */
           alt={post.data.heroAlt ?? post.data.title}
-          class="block w-full transition duration-300 group-hover:scale-[1.01]"
+          widths={[640, 960, 1200, 1440]}                        /* tailles utiles vs layout */
+          sizes="(min-width: 1024px) 960px, 100vw"
+          formats={['avif','webp','jpeg']}                       /* multi-formats → pas d’erreur sharp */
+          quality={82}
           loading="eager"
+          decoding="async"
+          fetchpriority="high"
+          class="block w-full max-h-[60vh] object-cover transition duration-300 group-hover:scale-[1.01]"  /* hauteur bornée */
         />
       </div>
     )}
@@ -99,13 +105,6 @@ const jsonld = {
     <!-- Grille 2 colonnes -->
     <div class="post-grid">
       <!-- Contenu -->
-      <!-- Contenu
-        Choisir une variante de style :
-        - blog-prose blog-prose--mag        → Style magazine (titres marqués, look éditorial moderne)
-        - blog-prose blog-prose--dark       → Mode sombre (fond foncé, texte clair)
-        - blog-prose blog-prose--editorial  → Style éditorial classique (polices serif, italique, bordures fines)
-        - blog-prose blog-prose--card       → Carte claire (fond blanc + ombre douce, idéal sur fond gris)
-      -->
       <div class="reveal blog-prose blog-prose--editorial" style="--delay:160ms">
         <Content />
       </div>
