@@ -1,29 +1,41 @@
 ---
 const reviews = [
-  { name: "Paul D.",  text: "Intervention super rapide, enlèvement gratuit comme annoncé.", rating: 5 },
-  { name: "Sonia R.", text: "Très pro et papier de destruction reçu, je recommande.",       rating: 5 },
-  { name: "Imad K.",  text: "Arrivés en 1 h, équipe ponctuelle, merci !",                    rating: 5 },
+  { name: "Youness HADDOU", text: "Super rapide et sympa, voiture récupérée sans prise de tête. Je recommande !", rating: 5 },
+  { name: "Anissa Rezali", text: "Équipe super pro et très sympa. Ils sont venus chercher ma voiture rapidement et tout s’est fait sans stress. Franchement, c’est au top !", rating: 5 },
+  { name: "Abdelkebir Mekki", text: "Enlèvement de mon véhicule ce matin, RDV rapide, simple et efficace. Je le recommande vivement.", rating: 5 },
+  { name: "Sandra Rathqueber", text: "Évaluation 5 étoiles.", rating: 5 },
+  { name: "Spitz Nain", text: "Un vraie professionnelle !! Je recommande les yeux fermés !", rating: 5 },
+  { name: "Sophiane Mekki", text: "Intervention en moins d’une heure, très professionnelle. Je recommande les yeux fermés. Aucun frais pour moi, comme indiqué sur leur site.", rating: 5 },
+  { name: "Miky Rathqueber", text: "Très professionnel. Prise de rendez-vous très rapide et facile, aucune démarche de ma part car ils s’occupent de tout et surtout gratuit, comme annoncé sur leur site. Enlèvement de ma 207 aujourd’hui. Je recommande 100 %.", rating: 5 }
 ];
 
 const count = reviews.length;
 const avg = Number((reviews.reduce((a, r) => a + r.rating, 0) / count).toFixed(1));
+const reviewsHref = "https://g.page/r/CXcysLip0nMbEBM/review";
 
-// Remplace par ton lien d’avis Google si tu en as un
-const reviewsHref = "https://g.page/r/XXXX/review";
+// NEW: piocher 3 avis aléatoires (Fisher–Yates)
+function pickRandom(arr, n) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a.slice(0, n);
+}
+const selectedReviews = pickRandom(reviews, 3);
 ---
 
 <section id="avis" class="relative mx-auto max-w-6xl px-6 py-16">
-  <!-- déco discrète -->
   <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-emerald-100/60 to-transparent opacity-70"></div>
 
   <header class="mb-10">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
         <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Avis clients</h2>
-        <p class="mt-2 text-gray-600">Objectif : <strong class="cursor-pointer">4.8★ / 5</strong>. Voici quelques retours récents.</p>
+        <p class="mt-2 text-gray-600">Objectif : <strong class="cursor-pointer">5★ / 5</strong>. Voici quelques retours récents.</p>
       </div>
 
-      <div class="flex items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-gray-200 shadow-sm cursor-pointerz">
+      <div class="flex items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-gray-200 shadow-sm cursor-pointer">
         <div class="flex items-center">
           {Array.from({ length: 5 }).map((_, i) => (
             <svg class={"h-5 w-5 " + (i < Math.round(avg) ? "text-amber-500" : "text-amber-200")} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -37,31 +49,20 @@ const reviewsHref = "https://g.page/r/XXXX/review";
     </div>
   </header>
 
-  <!-- grid desktop / carrousel tactile mobile -->
   <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 md:grid md:snap-none md:overflow-visible md:gap-6 md:grid-cols-3">
-    {reviews.map((r, i) => (
+    {/* MODIF: mapper sur selectedReviews (3 avis) */}
+    {selectedReviews.map((r, i) => (
       <figure
         class="review-card reveal group relative min-w-[85%] snap-center overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition duration-300 hover:-translate-y-1 hover:shadow-xl md:min-w-0 cursor-pointer"
         style={`--delay:${i * 80}ms`}
       >
-        <!-- bordure dégradée -->
-        <div class="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-             style="mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-                    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-                    -webkit-mask-composite: xor; mask-composite: exclude; padding:1px;
-                    background:linear-gradient(120deg, rgba(16,185,129,.5), rgba(16,185,129,.12), rgba(16,185,129,.5));"></div>
-
-        <!-- spotlight -->
-        <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-             style="background: radial-gradient(360px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
-
-        <div class="relative z-10">
+        <figcaption class="relative z-10">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
               <span class="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200 font-semibold">
                 {r.name[0]}
               </span>
-              <figcaption class="text-sm font-medium text-gray-900">{r.name}</figcaption>
+              <span class="text-sm font-medium text-gray-900">{r.name}</span>
             </div>
             <div class="flex items-center" aria-label={`${r.rating} étoiles`}>
               {Array.from({ length: 5 }).map((_, j) => (
@@ -71,16 +72,24 @@ const reviewsHref = "https://g.page/r/XXXX/review";
               ))}
             </div>
           </div>
+        </figcaption>
 
-          <blockquote class="mt-4 text-sm text-gray-700">
-            <span class="text-emerald-600" aria-hidden="true">“</span>{r.text}<span class="text-emerald-600" aria-hidden="true">”</span>
-          </blockquote>
-        </div>
+        <blockquote class="relative z-10 mt-4 text-sm text-gray-700">
+          <span class="text-emerald-600" aria-hidden="true">“</span>{r.text}<span class="text-emerald-600" aria-hidden="true">”</span>
+        </blockquote>
+
+        <div class="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+             style="mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+                    -webkit-mask-composite: xor; mask-composite: exclude; padding:1px;
+                    background:linear-gradient(120deg, rgba(16,185,129,.5), rgba(16,185,129,.12), rgba(16,185,129,.5));"></div>
+
+        <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+             style="background: radial-gradient(360px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
       </figure>
     ))}
   </div>
 
-  <!-- CTA avis -->
   <div class="mt-8 flex flex-wrap items-center gap-3">
     <a href={reviewsHref} target="_blank" rel="noopener"
        class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
@@ -92,7 +101,7 @@ const reviewsHref = "https://g.page/r/XXXX/review";
     <span class="text-sm text-gray-500">Merci pour votre retour 🙏</span>
   </div>
 
-  <!-- JSON-LD SEO -->
+  {/* JSON-LD: on garde TOUS les avis pour le SEO */}
   <script type="application/ld+json">
     {JSON.stringify({
       "@context": "https://schema.org",
@@ -110,7 +119,6 @@ const reviewsHref = "https://g.page/r/XXXX/review";
 </section>
 
 <style is:global>
-/* reveal au scroll + délai via --delay */
 .reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; transition-delay: var(--delay, 0ms); }
 .reveal.is-inview { opacity: 1; transform: translateY(0); }
 
@@ -121,7 +129,6 @@ const reviewsHref = "https://g.page/r/XXXX/review";
 </style>
 
 <script>
-  // Reveal au scroll
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -132,7 +139,6 @@ const reviewsHref = "https://g.page/r/XXXX/review";
   }, { threshold: 0.18 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-  // Spotlight (suit la souris)
   document.querySelectorAll('.review-card').forEach((card) => {
     card.addEventListener('mousemove', (e) => {
       const r = card.getBoundingClientRect();

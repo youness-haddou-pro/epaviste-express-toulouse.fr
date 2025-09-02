@@ -3,17 +3,28 @@ import type { } from "astro";
 interface Data {
   phone: string; phoneCompact: string; name: string;
 }
+import { Picture } from 'astro:assets';
+import hero from '@/assets/images/hero/hero-pro.jpg'; 
+
 const { data } = Astro.props as { data: Data };
+const widths = [640, 960, 1280, 1600, 1920, 2240];
+const sizes  = '100vw';
 ---
 
 <section class="relative overflow-hidden text-white">
   <!-- Image de fond en couverture -->
   <div class="absolute inset-0">
-    <img 
-      src="/images/hero/hero-pro.jpg" 
+    <Picture
+      src={hero}
       alt="Intervention professionnelle d’épaviste à Toulouse"
-      class="h-full w-full object-cover"
-      width="1920" height="1080" loading="eager" decoding="async"
+      widths={widths}
+      sizes={sizes}
+      formats={['avif', 'webp']}   /* + fallback auto (JPEG d’origine) */
+      loading="eager"              /* indispensable pour le LCP */
+      fetchpriority="high"         /* priorité haute pour Google Lighthouse */
+      decoding="async"
+      class="h-full w-full object-cover rounded-none"
+      style="aspect-ratio: 16/9;"
     />
     <!-- Overlay sombre pour lisibilité -->
     <div class="absolute inset-0 bg-black/50"></div>
