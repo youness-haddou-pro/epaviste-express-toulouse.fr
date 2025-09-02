@@ -12,21 +12,45 @@ const widths = [320, 480, 640, 768, 960, 1200, 1600];
 <footer class="relative overflow-hidden border-t border-gray-200 bg-gray-50">
   <!-- Décor discret (feuilles vectorielles) -->
   <div class="pointer-events-none absolute inset-0 opacity-10" aria-hidden="true">
-    <svg class="absolute -left-20 -top-10 h-64 w-64 animate-sway" viewBox="0 0 200 200" fill="none">
-      <path d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z" stroke="currentColor" class="text-emerald-700" stroke-width="2" fill="url(#g1)"/>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 200 200"
+      class="absolute -left-20 -top-10 h-64 w-64 animate-sway text-emerald-700"
+      aria-hidden="true"
+      focusable="false"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z"
+        fill="url(#g1)"
+      />
       <defs>
         <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08"/>
-          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08" />
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02" />
         </linearGradient>
       </defs>
     </svg>
-    <svg class="absolute -right-16 bottom-0 h-72 w-72 animate-sway-rev" viewBox="0 0 200 200" fill="none">
-      <path d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z" stroke="currentColor" class="text-teal-700" stroke-width="2" fill="url(#g2)"/>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 200 200"
+      class="absolute -right-16 bottom-0 h-72 w-72 animate-sway-rev text-teal-700"
+      aria-hidden="true"
+      focusable="false"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path
+        d="M100 10c30 30 45 60 45 90s-15 60-45 90c-30-30-45-60-45-90s15-60 45-90z"
+        fill="url(#g2)"
+      />
       <defs>
         <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08"/>
-          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02"/>
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.08" />
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.02" />
         </linearGradient>
       </defs>
     </svg>
@@ -41,7 +65,14 @@ const widths = [320, 480, 640, 768, 960, 1200, 1600];
           <h2 id="eco-title" class="inline-flex items-center gap-2 text-lg font-bold text-emerald-900">
             <span class="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 ring-1 ring-emerald-200">
               <!-- icône feuille animée -->
-              <svg class="h-5 w-5 text-emerald-700 animate-breathe" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-5 w-5 text-emerald-700 animate-breathe"
+                aria-hidden="true"
+                focusable="false"
+                fill="currentColor"
+              >
                 <path d="M12 3c5 0 9 4 9 9 0 6-7 9-9 9S3 18 3 12 7 3 12 3zm1.5 5C9 8 6 11 6 14c0 2 2 4 4 4 3 0 6-3 6-6 0-2-2-4-2.5-4z"/>
               </svg>
             </span>
@@ -56,7 +87,14 @@ const widths = [320, 480, 640, 768, 960, 1200, 1600];
           <ul class="mt-5 space-y-3 text-sm text-gray-700">
             <li class="flex items-start gap-3">
               <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
-                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4 text-emerald-700"
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="currentColor"
+                >
                   <path d="M9 12l2 2 4-4-1.5-1.5L11 11l-1.5-1.5L8 11l1 1z"/>
                 </svg>
               </span>
@@ -64,13 +102,31 @@ const widths = [320, 480, 640, 768, 960, 1200, 1600];
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
-                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l4 7h7l-5.5 4 2.5 8-8-5-8 5 2.5-8L1 9h7z"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4 text-emerald-700"
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="currentColor"
+                >
+                  <path d="M12 2l4 7h7l-5.5 4 2.5 8-8-5-8 5 2.5-8L1 9h7z"/>
+                </svg>
               </span>
               Traçabilité complète : certificat de destruction délivré par un centre agréé.
             </li>
             <li class="flex items-start gap-3">
               <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
-                <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor"><path d="M7 11h10v2H7z"/></svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4 text-emerald-700"
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="currentColor"
+                >
+                  <path d="M7 11h10v2H7z"/>
+                </svg>
               </span>
               Priorité au réemploi des pièces lorsque c’est possible.
             </li>

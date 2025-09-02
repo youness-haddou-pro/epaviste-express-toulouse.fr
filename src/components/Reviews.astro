@@ -38,7 +38,14 @@ const selectedReviews = pickRandom(reviews, 3);
       <div class="flex items-center gap-3 rounded-2xl bg-white px-4 py-2 ring-1 ring-gray-200 shadow-sm cursor-pointer">
         <div class="flex items-center">
           {Array.from({ length: 5 }).map((_, i) => (
-            <svg class={"h-5 w-5 " + (i < Math.round(avg) ? "text-amber-500" : "text-amber-200")} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              class={"h-5 w-5 " + (i < Math.round(avg) ? "text-amber-500" : "text-amber-200")}
+              aria-hidden="true"
+              focusable="false"
+              fill="currentColor"
+            >
               <path d="M10 2.5l2.6 5.3 5.9.9-4.2 4.1 1 5.9L10 16.6 4.7 18.7l1-5.9L1.5 8.7l5.9-.9L10 2.5z"/>
             </svg>
           ))}
@@ -66,7 +73,14 @@ const selectedReviews = pickRandom(reviews, 3);
             </div>
             <div class="flex items-center" aria-label={`${r.rating} étoiles`}>
               {Array.from({ length: 5 }).map((_, j) => (
-                <svg class={"h-4 w-4 " + (j < r.rating ? "text-amber-500" : "text-amber-200")} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                  class={"h-4 w-4 " + (j < r.rating ? "text-amber-500" : "text-amber-200")}
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="currentColor"
+                >
                   <path d="M10 2.5l2.6 5.3 5.9.9-4.2 4.1 1 5.9L10 16.6 4.7 18.7l1-5.9L1.5 8.7l5.9-.9L10 2.5z"/>
                 </svg>
               ))}
@@ -94,8 +108,19 @@ const selectedReviews = pickRandom(reviews, 3);
     <a href={reviewsHref} target="_blank" rel="noopener"
        class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-3 font-semibold text-white shadow-md transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
       Laisser un avis
-      <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        class="h-5 w-5"
+        aria-hidden="true"
+        focusable="false"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7 17L17 7M17 7H9M17 7v8" />
       </svg>
     </a>
     <span class="text-sm text-gray-500">Merci pour votre retour 🙏</span>

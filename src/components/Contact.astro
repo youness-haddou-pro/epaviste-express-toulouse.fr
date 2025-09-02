@@ -39,7 +39,16 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
           <!-- Tél -->
           <li class="flex items-center justify-between gap-3 rounded-xl bg-white/60 px-3 py-2 ring-1 ring-gray-200">
             <div class="flex min-w-0 items-center gap-2">
-              <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2.25 3.75A1.5 1.5 0 013.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 007.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 01-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 text-emerald-700"
+                aria-hidden="true"
+                focusable="false"
+                fill="currentColor"
+              >
+                <path d="M2.25 3.75A1.5 1.5 0 0 1 3.75 2.25h2.77c.63 0 1.2.4 1.4.98l.99 2.85c.18.52.05 1.1-.34 1.5l-1.7 1.7a16.76 16.76 0 0 0 7.12 7.12l1.7-1.7c.4-.39.98-.52 1.5-.34l2.85.99c.58.2.98.77.98 1.4v2.77a1.5 1.5 0 0 1-1.5 1.5H18c-8.56 0-15.5-6.94-15.5-15.5v-1.5z"/>
+              </svg>
               <a class="truncate font-medium text-emerald-700 hover:underline" href={`tel:${data.phoneCompact}`}>{data.phone}</a>
             </div>
             <div class="flex shrink-0 items-center gap-2">
@@ -51,8 +60,18 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
           <!-- Email -->
           <li class="flex items-center justify-between gap-3 rounded-xl bg-white/60 px-3 py-2 ring-1 ring-gray-200">
             <div class="flex min-w-0 items-center gap-2">
-              <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 text-emerald-700"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="M4 7l8 6 8-6" stroke-linecap="round" />
               </svg>
               <a class="truncate hover:underline" href={`mailto:${data.email}`}>{data.email}</a>
             </div>
@@ -62,8 +81,20 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
           <!-- Adresse -->
           <li class="flex items-center justify-between gap-3 rounded-xl bg-white/60 px-3 py-2 ring-1 ring-gray-200">
             <div class="flex min-w-0 items-center gap-2">
-              <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M12 22s7-6.1 7-12a7 7 0 10-14 0c0 5.9 7 12 7 12z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="2"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                class="h-4 w-4 text-emerald-700"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M12 22s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12z" />
+                <circle cx="12" cy="10" r="2.5" />
               </svg>
               <span class="truncate">{addressFull}</span>
             </div>
@@ -75,13 +106,41 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
 
           <!-- Horaires -->
           <li class="flex items-center gap-2 rounded-xl bg-white/60 px-3 py-2 ring-1 ring-gray-200">
-            <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/><path d="M12 8v4l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="h-4 w-4 text-emerald-700"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="8" />
+              <path d="M12 8v4l3 2" />
+            </svg>
             <span>9h–22h — 7j/7</span>
           </li>
 
           <!-- SIRET + RC Pro -->
           <li class="flex items-center gap-2 rounded-xl bg-white/60 px-3 py-2 ring-1 ring-gray-200">
-            <svg class="h-4 w-4 text-emerald-700" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 4h7l4 4v12H7z" stroke="currentColor" stroke-width="2"/><path d="M14 4v4h4" stroke="currentColor" stroke-width="2"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              class="h-4 w-4 text-emerald-700"
+              aria-hidden="true"
+              focusable="false"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M7 4h7l4 4v12H7z" />
+              <path d="M14 4v4h4" />
+            </svg>
             <span>SIRET : {data.siret} • RC Pro assurée</span>
           </li>
         </ul>

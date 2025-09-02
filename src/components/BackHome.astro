@@ -5,6 +5,7 @@ interface Props {
 }
 const { href = "/", label = "Retour à l’accueil" } = Astro.props;
 ---
+
 <a
   href={href}
   aria-label={label}
@@ -17,7 +18,8 @@ const { href = "/", label = "Retour à l’accueil" } = Astro.props;
 >
   <!-- Icône flèche -->
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-       fill="currentColor" class="h-5 w-5 -ml-1 transition group-hover:-translate-x-0.5">
+    class="h-5 w-5 -ml-1 transition group-hover:-translate-x-0.5" aria-hidden="true" focusable="false"
+    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
     <path d="M10.5 6l-6 6 6 6M4.5 12h15"/>
   </svg>
   <span>{label}</span>

@@ -31,8 +31,19 @@ const others = posts.slice(1);
     <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
         <a href="/" class="inline-flex items-center gap-2 text-sm font-medium text-gray-700 transition hover:-translate-y-0.5 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="h-4 w-4"
+            aria-hidden="true"
+            focusable="false"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
           </svg>
           Retour à l’accueil
         </a>
@@ -43,8 +54,19 @@ const others = posts.slice(1);
       {posts.length > 0 && (
         <a href="/blog/" class="inline-flex items-center gap-2 rounded-2xl bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
           Tous les articles
-          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            class="h-4 w-4"
+            aria-hidden="true"
+            focusable="false"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M7 17L17 7M17 7H9M17 7v8" />
           </svg>
         </a>
       )}

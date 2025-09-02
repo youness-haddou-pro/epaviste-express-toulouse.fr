@@ -65,8 +65,19 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
             data-state="collapsed"
           >
             Afficher tout
-            <svg class="h-4 w-4 transition-transform" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M10 14a1 1 0 01-.7-.29l-4-4a1 1 0 111.4-1.42L10 11.59l3.3-3.3a1 1 0 011.4 1.42l-4 4c-.18.19-.43.29-.7.29z" clip-rule="evenodd"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+              class="h-4 w-4 transition-transform"
+              aria-hidden="true"
+              focusable="false"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M10 14a1 1 0 0 1-.7-.29l-4-4a1 1 0 1 1 1.4-1.42L10 11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-4 4c-.18.19-.43.29-.7.29z"
+              />
             </svg>
           </button>
         </div>
@@ -89,11 +100,20 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
           <div class="relative z-10 flex items-start gap-4">
             <!-- mini “map” concentrique -->
             <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-200">
-              <svg class="h-9 w-9" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                <circle cx="40" cy="40" r="30" stroke="currentColor" stroke-width="2" opacity=".35"/>
-                <circle cx="40" cy="40" r="20" stroke="currentColor" stroke-width="2" opacity=".45"/>
-                <circle cx="40" cy="40" r="10" stroke="currentColor" stroke-width="2" opacity=".8"/>
-                <circle cx="40" cy="40" r="3"  fill="currentColor"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 80 80"
+                class="h-9 w-9"
+                aria-hidden="true"
+                focusable="false"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <circle cx="40" cy="40" r="30" opacity=".35" />
+                <circle cx="40" cy="40" r="20" opacity=".45" />
+                <circle cx="40" cy="40" r="10" opacity=".8" />
+                <circle cx="40" cy="40" r="3" fill="currentColor" />
               </svg>
             </div>
             <div>
@@ -129,8 +149,19 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
                        shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
               >
                 Ouvrir dans Maps
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <path d="M7 17L17 7M17 7H9M17 7v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4"
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M7 17L17 7M17 7H9M17 7v8" />
                 </svg>
               </a>
               <button
@@ -140,9 +171,20 @@ const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(addressFull)}`
                        shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 cursor-pointer"
               >
                 Copier l’adresse
-                <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                  <rect x="9" y="9" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
-                  <rect x="5" y="5" width="10" height="10" rx="2" stroke="currentColor" stroke-width="2" opacity=".6"/>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="h-4 w-4"
+                  aria-hidden="true"
+                  focusable="false"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="9" y="9" width="10" height="10" rx="2" />
+                  <rect x="5" y="5" width="10" height="10" rx="2" opacity=".6" />
                 </svg>
               </button>
             </div>
