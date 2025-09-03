@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { data } from '../data/siteData';
+
+const title = `Contact – Épaviste à Toulouse (réponse rapide) | ${data.name}`;
+const description = "Contactez-nous pour un enlèvement d’épave gratuit à Toulouse et 100 km autour. Réponse rapide 9h–22h, 7j/7.";
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: title,
+  description,
+  mainEntity: {
+    '@type': 'LocalBusiness',
+    name: data.name,
+    telephone: data.phoneCompact,
+    email: data.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: data.address.street,
+      postalCode: data.address.postalCode,
+      addressLocality: data.address.city,
+      addressRegion: data.address.region,
+      addressCountry: 'FR'
+    },
+    areaServed: 'Toulouse (100 km)',
+    openingHours: data.hours
+  }
+};
+---
+
+<Layout title={title} description={description} jsonld={jsonld} lang="fr">
+  <MobileCTA phoneCompact={data.phoneCompact} />
+
+  <!-- Fil d’Ariane -->
+  <nav class="mx-auto max-w-6xl px-6 pt-6 text-sm text-gray-700">
+    <a href="/" class="rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100">Accueil</a>
+    <span aria-hidden="true"> / </span>
+    <span class="px-2 py-1 text-gray-500">Contact</span>
+  </nav>
+
+  <!-- Intro courte -->
+  <section class="relative mx-auto max-w-6xl px-6 pb-2 pt-10">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-emerald-100/60 to-transparent opacity-70"></div>
+    <header class="reveal" style="--delay:0ms">
+      <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Contact</h1>
+      <p class="mt-3 max-w-3xl text-zinc-600">
+        Dites-nous où se trouve le véhicule et son état. Nous revenons vers vous rapidement (9h–22h).
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Appeler {data.phone}
+        </a>
+        <a href="/services/" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+          Voir nos services
+        </a>
+      </div>
+    </header>
+  </section>
+
+  <!-- Formulaire + coordonnées (ton composant) -->
+  <Contact data={data} />
+
+  <!-- Bloc aides -->
+  <section class="reveal mx-auto max-w-6xl px-6 pb-10" style="--delay:200ms">
+    <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
+      <h2 class="text-xl font-semibold">Pour une prise en charge encore plus rapide</h2>
+      <ul class="mt-3 list-disc pl-5 text-sm text-zinc-600">
+        <li>Indiquez si le véhicule roule ou non, l’accès (parking, sous-sol, voie publique) et la présence des clés.</li>
+        <li>Envoyez 2–3 photos (générale + plaque VIN si possible).</li>
+        <li>Précisez la commune exacte : <a href="/zones/" class="underline">zones d’intervention</a>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <Footer name={data.name} />
+
+  <style is:global>
+    .reveal { opacity:0; transform:translateY(8px); transition:opacity .45s ease, transform .45s ease; transition-delay:var(--delay,0ms); }
+    .reveal.is-inview { opacity:1; transform:translateY(0); }
+    @media (prefers-reduced-motion: reduce){ .reveal{ opacity:1; transform:none; transition:none; } }
+  </style>
+
+  <script>
+    const io = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-inview');io.unobserve(e.target);}})},{threshold:.18});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</Layout>
