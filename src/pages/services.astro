@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import ServicesSection from '../components/Services.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import { data } from '../data/siteData';
+
+const title = `Services d’épaviste à Toulouse (gratuit) | ${data.name}`;
+const description = "Tous nos services d’enlèvement d’épaves à Toulouse et 100 km : véhicule HS, accidenté, moto, utilitaire, certificat de destruction, remorquage. Intervention en 1–2 h.";
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Enlèvement d’épaves gratuit',
+  areaServed: 'Toulouse et 100 km',
+  provider: {
+    '@type': 'LocalBusiness',
+    name: data.name,
+    telephone: data.phoneCompact,
+    email: data.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: data.address.street,
+      postalCode: data.address.postalCode,
+      addressLocality: data.address.city,
+      addressRegion: data.address.region,
+      addressCountry: 'FR'
+    }
+  },
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Catalogue des services',
+    itemListElement: [
+      { '@type': 'Offer', name: "Enlèvement d’épave à domicile (gratuit)", price: 0, priceCurrency: 'EUR' },
+      { '@type': 'Offer', name: 'Remorquage / dépannage' },
+      { '@type': 'Offer', name: 'Véhicules accidentés / brûlés / inondés' },
+      { '@type': 'Offer', name: 'Utilitaires & camping-cars (sur devis)' },
+      { '@type': 'Offer', name: 'Moto / scooter' },
+      { '@type': 'Offer', name: 'Poids lourds & machines agricoles (sur devis)' },
+      { '@type': 'Offer', name: 'Destruction avec certificat' }
+    ]
+  }
+};
+
+// FAQ SEO
+const faqJsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: "L’enlèvement est-il réellement gratuit ?",
+      acceptedAnswer: { '@type': 'Answer', text: "Oui, dans un rayon de 100 km autour de Toulouse. Aucun frais caché. Au-delà, un devis clair est proposé." }
+    },
+    {
+      '@type': 'Question',
+      name: "En combien de temps intervenez-vous ?",
+      acceptedAnswer: { '@type': 'Answer', text: "Généralement sous 1–2 heures selon disponibilités et trafic." }
+    },
+    {
+      '@type': 'Question',
+      name: "Pouvez-vous enlever une épave sans carte grise ?",
+      acceptedAnswer: { '@type': 'Answer', text: "Oui, selon les cas (déclaration de perte, certificat notarié, etc.). Nous vous guidons sur les documents nécessaires." }
+    },
+    {
+      '@type': 'Question',
+      name: "Fournissez-vous un certificat de destruction ?",
+      acceptedAnswer: { '@type': 'Answer', text: "Oui. Le document officiel est émis après traitement par le centre agréé (~1 mois)." }
+    }
+  ]
+};
+---
+
+<Layout title={title} description={description} jsonld={jsonld} lang="fr">
+  <MobileCTA phoneCompact={data.phoneCompact} />
+
+  <!-- Fil d’Ariane -->
+  <nav class="mx-auto max-w-6xl px-6 pt-6 text-sm text-gray-700">
+    <a href="/" class="rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100">Accueil</a>
+    <span aria-hidden="true"> / </span>
+    <span class="px-2 py-1 text-gray-500">Services</span>
+  </nav>
+
+  <!-- Hero / Intro -->
+  <section class="relative mx-auto max-w-6xl px-6 pb-4 pt-10">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-emerald-100/60 to-transparent opacity-70"></div>
+    <header class="reveal" style="--delay:0ms">
+      <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Services d’épaviste à Toulouse</h1>
+      <p class="mt-3 max-w-3xl text-zinc-600">
+        Enlèvement d’épaves <strong>gratuit</strong> à domicile, 100% réglementaire, partout à Toulouse et <strong>100 km autour</strong>. 
+        Intervention rapide (1–2 h), <em>zéro frais cachés</em> et <strong>certificat de destruction</strong> délivré par un centre agréé.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Appeler {data.phone}
+        </a>
+        <a href="/zones/" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+          Voir nos zones d’intervention
+        </a>
+      </div>
+    </header>
+  </section>
+
+  <!-- Catalogue (réutilise ton composant) -->
+  <ServicesSection />
+
+  <!-- Bloc atouts -->
+  <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:160ms">
+    <div class="grid gap-6 md:grid-cols-3">
+      {[
+        {title:'Gratuit & transparent',desc:'Aucun frais surprise dans le rayon de 100 km autour de Toulouse.'},
+        {title:'Conforme & sécurisé',desc:'Traçabilité complète et dépollution dans un centre VHU agréé.'},
+        {title:'Rapide',desc:'Prise en charge en 1–2 h selon disponibilité.'}
+      ].map((f) => (
+        <article class="group relative overflow-hidden rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition hover:shadow-md">
+          <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(320px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
+          <h3 class="font-semibold">{f.title}</h3>
+          <p class="mt-2 text-sm text-zinc-600">{f.desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ courte -->
+  <section class="reveal mx-auto max-w-6xl px-6 pb-6" style="--delay:200ms">
+    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Questions fréquentes</h2>
+    <div class="mt-6 divide-y divide-gray-200 rounded-2xl bg-white ring-1 ring-gray-200">
+      {[
+        {q:"L’enlèvement est-il réellement gratuit ?",a:"Oui, dans un rayon de 100 km autour de Toulouse. Au-delà, un devis vous est proposé avant toute intervention."},
+        {q:"Quels documents faut-il ?",a:"Carte grise si disponible, pièce d’identité, formulaire Cerfa. Sans carte grise, des alternatives existent : on vous guide."},
+        {q:"Combien de temps pour l’intervention ?",a:"Sous 1–2 h en général, selon disponibilité et circulation."},
+        {q:"Quand reçois-je le certificat de destruction ?",a:"Le centre VHU émet le document, généralement sous ~1 mois."}
+      ].map((item) => (
+        <details class="group px-5 py-4">
+          <summary class="flex cursor-pointer items-center justify-between font-medium text-gray-900">
+            {item.q}
+            <span class="ml-3 inline-flex h-6 w-6 items-center justify-center rounded-full ring-1 ring-gray-300 transition group-open:rotate-45">+</span>
+          </summary>
+          <p class="mt-2 text-sm text-zinc-600">{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <Contact data={data} />
+  <Footer name={data.name} />
+
+  <!-- JSON-LD FAQ -->
+  <script type="application/ld+json">{JSON.stringify(faqJsonld)}</script>
+</Layout>
+
+<style is:global>
+  .reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; transition-delay: var(--delay, 0ms); }
+  .reveal.is-inview { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-inview'); io.unobserve(e.target); } });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
