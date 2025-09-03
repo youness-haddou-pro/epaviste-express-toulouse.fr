@@ -1,0 +1,103 @@
+---
+/**
+ * FooterMenu.astro
+ * Menu de bas de page discret (petite typo, faible contraste, hover léger).
+ *
+ * Props :
+ * - title?: string                    → Titre du bloc (par défaut: "Plan du site")
+ * - sections?: Array<{ title?: string, links: { href: string, label: string }[] }>
+ * - columns?: number                  → Nb de colonnes md+ (par défaut 3)
+ * - className?: string                → Classes supplémentaires sur le wrapper
+ */
+
+interface Link { href: string; label: string }
+interface Section { title?: string; links: Link[] }
+interface Props {
+  title?: string;
+  sections?: Section[];
+  columns?: number;
+  className?: string;
+}
+
+const {
+  title = 'Plan du site',
+  columns = 3,
+  className = '',
+  sections = [
+    {
+      title: 'Prestations',
+      links: [
+        { href: '/services/', label: 'Services' },
+        { href: '/depollution/', label: 'Dépollution' },
+        { href: '/certificat-destruction/', label: 'Certificat de destruction' },
+        { href: '/tarifs/', label: 'Tarifs' }, // présent si tu as la page
+        { href: '/processus/', label: 'Processus' } // présent si tu as la page
+      ].filter(Boolean as any)
+    },
+    {
+      title: 'Zones',
+      links: [
+        { href: '/zones/', label: 'Zones d’intervention' },
+        { href: '/blog/?ville=Toulouse', label: 'Conseils à Toulouse' },
+        { href: '/blog/?ville=Colomiers', label: 'Colomiers' },
+        { href: '/blog/?ville=Blagnac', label: 'Blagnac' }
+      ]
+    },
+    {
+      title: 'Contact & infos',
+      links: [
+        { href: '/contact/', label: 'Contact' },
+        { href: '/blog/', label: 'Blog' },
+        { href: '/mentions-legales', label: 'Mentions légales' },
+        { href: '/politique-confidentialite', label: 'Confidentialité' },
+        { href: '/blog/rss.xml', label: 'RSS' }
+      ]
+    }
+  ]
+} = Astro.props as Props;
+
+// calcul des classes de colonnes
+const cols =
+  columns === 4 ? 'md:grid-cols-4' :
+  columns === 2 ? 'md:grid-cols-2' :
+  'md:grid-cols-3';
+---
+
+<section
+  aria-labelledby="footer-menu-title"
+  class={`mt-10 rounded-2xl bg-white/60 p-5 ring-1 ring-gray-200 backdrop-blur ${className}`}
+>
+  <div class="mb-4 flex items-center gap-2">
+    <h2 id="footer-menu-title" class="text-xs font-semibold uppercase tracking-wide text-gray-700">
+      {title}
+    </h2>
+    <span class="h-px flex-1 bg-gradient-to-r from-gray-300/80 to-transparent"></span>
+  </div>
+
+  <div class={`grid gap-6 ${cols}`}>
+    {sections.map((section) => (
+      <nav class="text-[12.5px] leading-6 text-zinc-600" aria-label={section.title ?? 'Liens'}>
+        {section.title && (
+          <h3 class="mb-2 text-[11.5px] font-semibold uppercase tracking-wide text-zinc-500">
+            {section.title}
+          </h3>
+        )}
+        <ul class="space-y-1.5">
+          {section.links.map((l) => (
+            <li>
+              <a
+                href={l.href}
+                class="inline-flex items-center gap-2 rounded-md px-1 py-0.5 transition
+                      hover:-translate-y-0.5 hover:text-gray-900 hover:underline
+                      focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+              >
+                <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-zinc-300 transition group-hover:bg-emerald-400"></span>
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+  </div>
+</section>

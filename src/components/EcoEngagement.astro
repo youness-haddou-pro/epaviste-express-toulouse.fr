@@ -1,0 +1,137 @@
+---
+/**
+ * EcoEngagement.astro
+ * Bloc éditorial "Engagement écologique" (réutilisable).
+ *
+ * Props (facultatives) :
+ * - title?: string
+ * - intro?: string
+ * - bullets?: string[]
+ * - badges?: string[]
+ * - className?: string
+ *
+ * Tu peux aussi remplacer les visuels par défaut via :
+ * - imgTraitement?: ImageMetadata
+ * - imgReemploi?: ImageMetadata
+ */
+import { Picture } from 'astro:assets';
+import defaultTraitement from '@/assets/images/eco/traitement.png';
+import defaultReemploi from '@/assets/images/eco/reemploi.png';
+
+interface Props {
+  title?: string;
+  intro?: string;
+  bullets?: string[];
+  badges?: string[];
+  className?: string;
+  imgTraitement?: any;
+  imgReemploi?: any;
+}
+
+const {
+  title = 'Engagement écologique',
+  intro = "Nous intervenons en respect des normes de dépollution et de traçabilité. Les véhicules sont dirigés vers des centres agréés pour un traitement responsable.",
+  bullets = [
+    'Dépollution réglementaire avant recyclage (fluides, batteries, pneus).',
+    'Traçabilité complète : certificat de destruction délivré par un centre agréé.',
+    'Priorité au réemploi des pièces lorsque c’est possible.',
+  ],
+  badges = ['Dépollution', '♻️ Recyclage', '🔒 Traçabilité'],
+  className = '',
+  imgTraitement = defaultTraitement,
+  imgReemploi = defaultReemploi,
+} = Astro.props as Props;
+
+const sizesCol = '(max-width: 767px) 100vw, 33vw';
+const widths = [320, 480, 640, 768, 960, 1200, 1600];
+---
+
+<section aria-labelledby="eco-title" class={`relative rounded-3xl bg-white/70 p-6 ring-1 ring-gray-200 backdrop-blur ${className}`}>
+  <div class="grid gap-8 md:grid-cols-3">
+    <!-- Colonne texte + points forts -->
+    <div>
+      <h2 id="eco-title" class="inline-flex items-center gap-2 text-lg font-bold text-emerald-900">
+        <span class="relative inline-flex h-8 w-8 items-center justify-center rounded-full bg-emerald-100 ring-1 ring-emerald-200">
+          <!-- icône feuille animée -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+               class="h-5 w-5 text-emerald-700 animate-breathe" aria-hidden="true" focusable="false" fill="currentColor">
+            <path d="M12 3c5 0 9 4 9 9 0 6-7 9-9 9S3 18 3 12 7 3 12 3zm1.5 5C9 8 6 11 6 14c0 2 2 4 4 4 3 0 6-3 6-6 0-2-2-4-2.5-4z"/>
+          </svg>
+        </span>
+        {title}
+      </h2>
+
+      <p class="mt-3 text-sm leading-relaxed text-gray-700">{intro}</p>
+
+      <ul class="mt-5 space-y-3 text-sm text-gray-700">
+        {bullets.map((b) => (
+          <li class="flex items-start gap-3">
+            <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 ring-1 ring-emerald-200">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                   class="h-4 w-4 text-emerald-700" aria-hidden="true" focusable="false" fill="currentColor">
+                <path d="M9 12l2 2 4-4-1.5-1.5L11 11l-1.5-1.5L8 11l1 1z"/>
+              </svg>
+            </span>
+            {b}
+          </li>
+        ))}
+      </ul>
+
+      <!-- Badges engagement -->
+      <div class="mt-5 flex flex-wrap items-center gap-2">
+        {badges.map((label, i) => (
+          <span class={`inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs font-medium ring-1 ${
+              i===0 ? 'bg-emerald-100 text-emerald-800 ring-emerald-200' :
+              i===1 ? 'bg-teal-100 text-teal-800 ring-teal-200' :
+                      'bg-lime-100 text-lime-800 ring-lime-200'
+            }`}>
+            {i===0 && <span class="h-2 w-2 animate-ping rounded-full bg-emerald-600"></span>}
+            {label}
+          </span>
+        ))}
+      </div>
+    </div>
+
+    <!-- Colonne visuel 1 -->
+    <div class="group relative aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-gray-200 md:aspect-[4/3]">
+      <Picture
+        src={imgTraitement}
+        alt="Traitement et dépollution en centre agréé"
+        widths={widths}
+        sizes={sizesCol}
+        formats={['avif','webp']}
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+      />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      <div class="absolute bottom-3 left-3 rounded-lg bg-white/80 px-3 py-1 text-xs font-semibold text-gray-700 ring-1 ring-white/60 backdrop-blur">
+        Centre agréé VHU
+      </div>
+    </div>
+
+    <!-- Colonne visuel 2 -->
+    <div class="group relative aspect-[3/2] overflow-hidden rounded-2xl ring-1 ring-gray-200">
+      <Picture
+        src={imgReemploi}
+        alt="Réemploi et tri des pièces"
+        widths={widths}
+        sizes={sizesCol}
+        formats={['avif','webp']}
+        loading="lazy"
+        decoding="async"
+        class="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+      />
+      <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+      <div class="absolute bottom-3 left-3 rounded-lg bg-white/80 px-3 py-1 text-xs font-semibold text-gray-700 ring-1 ring-white/60 backdrop-blur">
+        Réemploi des pièces
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+@keyframes breathe { 0%{ transform: scale(1);} 50%{ transform: scale(1.05);} 100%{ transform: scale(1);} }
+.animate-breathe { animation: breathe 3.5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .animate-breathe { animation: none !important; } }
+</style>
