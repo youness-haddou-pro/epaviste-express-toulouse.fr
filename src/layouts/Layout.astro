@@ -39,33 +39,6 @@ import Base from "./Base.astro";
       gtag('js', new Date());
       gtag('config', 'AW-17527073084');
     </script>
-
-    <!-- Suivi des clics sur numéro (conversion Google Ads) -->
-    <script>
-      const SEND_TO = 'AW-17527073084/2iUaCK_4rZMbELzSx6VB';
-
-      function trackTelClicks() {
-        const links = document.querySelectorAll('a[href^="tel:"]');
-        links.forEach(a => {
-          a.addEventListener('click', () => {
-            if (typeof gtag === 'function') {
-              gtag('event', 'conversion', {
-                'send_to': SEND_TO,
-                'value': 1.0,
-                'currency': 'EUR'
-              });
-              console.log('[Ads] Conversion envoyée pour clic tel:', a.href);
-            }
-          }, { passive: true });
-        });
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', trackTelClicks);
-      } else {
-        trackTelClicks();
-      }
-    </script>
   </head>
   <body class="min-h-screen bg-gray-50 text-gray-900">
     <slot />
