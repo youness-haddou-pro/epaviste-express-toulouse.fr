@@ -1,19 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import MobileCTA from '../components/MobileCTA.astro';
-import ServicesSection from '../components/Services.astro';
-import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
-import { data } from '../data/siteData';
+import Layout from '../../layouts/Layout.astro';
+import MobileCTA from '../../components/MobileCTA.astro';
+import ServicesSection from '../../components/Services.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { data } from '../../data/siteData';
 
-const title = `Services d’épaviste à Toulouse (gratuit) | ${data.name}`;
-const description = "Tous nos services d’enlèvement d’épaves à Toulouse et 100 km : véhicule HS, accidenté, moto, utilitaire, certificat de destruction, remorquage. Intervention en 1–2 h.";
+const title = `Dépannage auto 24/7 & épaves (gratuit) à Toulouse | ${data.name}`;
+const description = "Dépannage et remorquage auto 24h/24 - 7j/7, toutes distances (sur devis). Enlèvement d’épaves gratuit à Toulouse et 100 km : véhicules HS, accidentés, moto, utilitaire, certificat de destruction. Intervention rapide (1–2 h).";
 
 const jsonld = {
   '@context': 'https://schema.org',
   '@type': 'Service',
-  name: 'Enlèvement d’épaves gratuit',
-  areaServed: 'Toulouse et 100 km',
+  name: 'Dépannage auto 24/7 & Enlèvement d’épaves',
+  areaServed: 'Toulouse (épaves gratuit 100 km) + toutes distances pour dépannage',
   provider: {
     '@type': 'LocalBusiness',
     name: data.name,
@@ -33,6 +33,7 @@ const jsonld = {
     name: 'Catalogue des services',
     itemListElement: [
       { '@type': 'Offer', name: "Enlèvement d’épave à domicile (gratuit)", price: 0, priceCurrency: 'EUR' },
+      { '@type': 'Offer', name: "Dépannage auto 24/7 (toutes distances)", priceSpecification: { '@type': 'PriceSpecification', priceCurrency: 'EUR' } },
       { '@type': 'Offer', name: 'Remorquage / dépannage' },
       { '@type': 'Offer', name: 'Véhicules accidentés / brûlés / inondés' },
       { '@type': 'Offer', name: 'Utilitaires & camping-cars (sur devis)' },
@@ -52,6 +53,11 @@ const faqJsonld = {
       '@type': 'Question',
       name: "L’enlèvement est-il réellement gratuit ?",
       acceptedAnswer: { '@type': 'Answer', text: "Oui, dans un rayon de 100 km autour de Toulouse. Aucun frais caché. Au-delà, un devis clair est proposé." }
+    },
+    {
+      '@type': 'Question',
+      name: "Le dépannage est-il disponible 24/7 et sur toutes distances ?",
+      acceptedAnswer: { '@type': 'Answer', text: "Oui. Dépannage/remorquage 24h/24 et 7j/7, toutes distances en France, sur devis. Contactez-nous par téléphone ou via le formulaire /contact pour un chiffrage immédiat." }
     },
     {
       '@type': 'Question',
@@ -88,8 +94,9 @@ const faqJsonld = {
     <header class="reveal" style="--delay:0ms">
       <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Services d’épaviste à Toulouse</h1>
       <p class="mt-3 max-w-3xl text-zinc-600">
-        Enlèvement d’épaves <strong>gratuit</strong> à domicile, 100% réglementaire, partout à Toulouse et <strong>100 km autour</strong>. 
-        Intervention rapide (1–2 h), <em>zéro frais cachés</em> et <strong>certificat de destruction</strong> délivré par un centre agréé.
+        Enlèvement d’épaves <strong>gratuit</strong> à domicile dans un rayon de <strong>100 km</strong> autour de Toulouse, 100% réglementaire, avec <strong>certificat de destruction</strong>.
+        Intervention rapide (1–2 h selon disponibilité). <br>
+        <strong>Dépannage & remorquage 24h/24 – 7j/7</strong>, <em>toutes distances</em> (sur devis).
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
         <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
@@ -102,14 +109,37 @@ const faqJsonld = {
     </header>
   </section>
 
-  <!-- Catalogue (réutilise ton composant) -->
+  <!-- Catalogue -->
   <ServicesSection />
+
+  <!-- Bloc Dépannage 24/7 -->
+  <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:120ms">
+    <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-200 shadow-sm">
+      <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Dépannage auto 24/7 — toutes distances</h2>
+      <p class="mt-3 text-zinc-600">
+        Besoin d’un remorquage ou d’un dépannage immédiat ? Nos équipes interviennent <strong>24h/24 et 7j/7</strong>, en ville, sur voie rapide ou autoroute, et <strong>partout en France</strong>.
+        Le prix dépend de la distance, de l’accès et de l’horaire. Pour un <strong>devis instantané</strong>, appelez-nous ou utilisez le formulaire.
+      </p>
+      <div class="mt-5 flex flex-wrap gap-3">
+        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Appeler {data.phone}
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+          Demander un devis
+        </a>
+      </div>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm text-zinc-700">
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Assistance batterie, crevaison, ouverture porte</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Remorquage courte & longue distance</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Relais garage / domicile / assurance</li>
+      </ul>
+    </div>
+  </section>
 
   <!-- Bloc atouts -->
   <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:160ms">
     <div class="grid gap-6 md:grid-cols-3">
-      {[
-        {title:'Gratuit & transparent',desc:'Aucun frais surprise dans le rayon de 100 km autour de Toulouse.'},
+      {[{title:'Gratuit & transparent',desc:'Aucun frais surprise dans le rayon de 100 km autour de Toulouse.'},
         {title:'Conforme & sécurisé',desc:'Traçabilité complète et dépollution dans un centre VHU agréé.'},
         {title:'Rapide',desc:'Prise en charge en 1–2 h selon disponibilité.'}
       ].map((f) => (
@@ -122,12 +152,12 @@ const faqJsonld = {
     </div>
   </section>
 
-  <!-- FAQ courte -->
+  <!-- FAQ -->
   <section class="reveal mx-auto max-w-6xl px-6 pb-6" style="--delay:200ms">
     <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Questions fréquentes</h2>
     <div class="mt-6 divide-y divide-gray-200 rounded-2xl bg-white ring-1 ring-gray-200">
-      {[
-        {q:"L’enlèvement est-il réellement gratuit ?",a:"Oui, dans un rayon de 100 km autour de Toulouse. Au-delà, un devis vous est proposé avant toute intervention."},
+      {[{q:"L’enlèvement est-il réellement gratuit ?",a:"Oui, dans un rayon de 100 km autour de Toulouse. Au-delà, un devis vous est proposé avant toute intervention."},
+        {q:"Le dépannage est-il 24/7 et possible sur longues distances ?",a:"Oui. Nous intervenons 24h/24 – 7j/7, toutes distances en France. Le tarif est établi sur devis (distance, accès, horaire). Appelez-nous ou utilisez /contact."},
         {q:"Quels documents faut-il ?",a:"Carte grise si disponible, pièce d’identité, formulaire Cerfa. Sans carte grise, des alternatives existent : on vous guide."},
         {q:"Combien de temps pour l’intervention ?",a:"Sous 1–2 h en général, selon disponibilité et circulation."},
         {q:"Quand reçois-je le certificat de destruction ?",a:"Le centre VHU émet le document, généralement sous ~1 mois."}

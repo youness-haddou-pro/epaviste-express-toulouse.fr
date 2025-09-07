@@ -1,0 +1,167 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import MobileCTA from '../../components/MobileCTA.astro';
+import Contact from '../../components/Contact.astro';
+import Footer from '../../components/Footer.astro';
+import { data } from '../../data/siteData';
+
+const title = `Dépannage auto 24/7 — toutes distances | ${data.name}`;
+const description = "Dépannage et remorquage auto 24h/24 et 7j/7, toutes distances (sur devis). Intervention rapide (1–2 h). Devis par téléphone ou via /contact.";
+
+const businessJsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'EmergencyService',
+  name: data.name,
+  telephone: data.phoneCompact,
+  email: data.email,
+  areaServed: [
+    'Toulouse et 100 km (épaves gratuit)',
+    'France — toutes distances (dépannage/remorquage)'
+  ],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: data.address.street,
+    postalCode: data.address.postalCode,
+    addressLocality: data.address.city,
+    addressRegion: data.address.region,
+    addressCountry: 'FR'
+  },
+  openingHoursSpecification: [{
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'],
+    opens: '00:00',
+    closes: '23:59'
+  }],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Dépannage & remorquage 24/7',
+    itemListElement: [
+      { '@type': 'Offer', name: 'Dépannage auto 24/7 (toutes distances)' },
+      { '@type': 'Offer', name: 'Remorquage voiture / utilitaire' },
+      { '@type': 'Offer', name: 'Assistance batterie / crevaison / ouverture porte' }
+    ]
+  }
+};
+
+const faqJsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    { '@type': 'Question', name: "Comment obtenir un devis de dépannage ?", acceptedAnswer: { '@type': 'Answer', text: "Appelez-nous ou utilisez /contact avec départ/arrivée, type de véhicule et situation : réponse immédiate." } },
+    { '@type': 'Question', name: "Intervenez-vous la nuit et le week-end ?", acceptedAnswer: { '@type': 'Answer', text: "Oui, 24h/24 et 7j/7. Le tarif peut varier selon l’horaire et l’accès." } },
+    { '@type': 'Question', name: "Pouvez-vous couvrir de longues distances ?", acceptedAnswer: { '@type': 'Answer', text: "Oui, toutes distances en France. Prix selon distance, véhicule et accès." } },
+    { '@type': 'Question', name: "Quel est le délai d’intervention ?", acceptedAnswer: { '@type': 'Answer', text: "En général sous 1–2 heures autour de Toulouse, selon disponibilité et circulation." } }
+  ]
+};
+---
+
+<Layout title={title} description={description} jsonld={businessJsonld} lang="fr" canonical="/depannage/">
+  <MobileCTA phoneCompact={data.phoneCompact} />
+
+  <!-- Fil d’Ariane -->
+  <nav class="mx-auto max-w-6xl px-6 pt-6 text-sm text-gray-700">
+    <a href="/" class="rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100">Accueil</a>
+    <span aria-hidden="true"> / </span>
+    <a href="/services/" class="rounded-lg px-2 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100">Services</a>
+    <span aria-hidden="true"> / </span>
+    <span class="px-2 py-1 text-gray-500">Dépannage</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative mx-auto max-w-6xl px-6 pb-4 pt-10">
+    <div class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-28 bg-gradient-to-b from-emerald-100/60 to-transparent opacity-70"></div>
+    <header class="reveal" style="--delay:0ms">
+      <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Dépannage auto 24/7 — toutes distances</h1>
+      <p class="mt-3 max-w-3xl text-zinc-600">
+        Besoin d’un <strong>dépannage</strong> ou d’un <strong>remorquage</strong> immédiat ? Intervention <strong>24h/24 – 7j/7</strong>,
+        sur <strong>toutes distances</strong> en France (sur devis). Délai moyen <strong>1–2 h</strong> autour de Toulouse.
+      </p>
+      <div class="mt-6 flex flex-wrap gap-3">
+        <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+          Appeler {data.phone}
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+          Demander un devis via /contact
+        </a>
+      </div>
+    </header>
+  </section>
+
+  <!-- Arguments -->
+  <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:120ms">
+    <div class="grid gap-6 md:grid-cols-3">
+      {[
+        {title:'Disponible 24h/24 – 7j/7',desc:'Jour/nuit, week-ends et jours fériés.'},
+        {title:'Toutes distances',desc:'Local, régional ou national — sur devis clair.'},
+        {title:'Rapide et sécurisé',desc:'Intervention généralement sous 1–2 h autour de Toulouse.'}
+      ].map((f) => (
+        <article class="group relative overflow-hidden rounded-2xl bg-white p-6 ring-1 ring-gray-200 transition hover:shadow-md">
+          <div class="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" style="background: radial-gradient(320px circle at var(--x,50%) var(--y,50%), rgba(16,185,129,.08), transparent 40%);"></div>
+          <h2 class="font-semibold">{f.title}</h2>
+          <p class="mt-2 text-sm text-zinc-600">{f.desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- Prestations -->
+  <section class="reveal mx-auto max-w-6xl px-6 py-8" style="--delay:160ms">
+    <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-200 shadow-sm">
+      <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Ce que nous faisons</h2>
+      <ul class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-sm text-zinc-700">
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Remorquage voiture / utilitaire</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Panne batterie / démarrage</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Crevaison / roue de secours</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Ouverture de porte (clés à l’intérieur)</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Relais garage / domicile / assurance</li>
+        <li class="rounded-xl bg-emerald-50 px-4 py-3 ring-1 ring-emerald-200">Transport longue distance sur devis</li>
+      </ul>
+      <p class="mt-4 text-sm text-zinc-600">
+        Le tarif dépend de la <strong>distance</strong>, du <strong>type de véhicule</strong>, des <strong>conditions d’accès</strong> et de l’<strong>horaire</strong>.
+        Pour un chiffrage rapide, appelez ou utilisez <a href="/contact" class="underline">/contact</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- Conseils sécurité -->
+  <section class="reveal mx-auto max-w-6xl px-6 pb-6" style="--delay:200ms">
+    <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
+      <h2 class="text-2xl font-bold tracking-tight md:text-3xl">En cas de panne, pensez à&nbsp;:</h2>
+      <ol class="mt-4 list-decimal space-y-2 pl-6 text-sm text-zinc-700">
+        <li>Enfiler le gilet, se mettre en sécurité derrière la barrière si possible.</li>
+        <li>Allumer les feux de détresse et placer le triangle si la zone est sûre.</li>
+        <li>Nous appeler avec votre localisation (appli/cartes, borne km, sortie).</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="reveal mx-auto max-w-6xl px-6 pb-2" style="--delay:220ms">
+    <div class="flex flex-wrap gap-3">
+      <a href={`tel:${data.phoneCompact}`} class="inline-flex items-center gap-2 rounded-2xl bg-emerald-600 px-5 py-2.5 font-semibold text-white shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+        Appeler {data.phone}
+      </a>
+      <a href="/contact" class="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-2.5 font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:-translate-y-0.5 hover:bg-gray-50">
+        Demander un devis via /contact
+      </a>
+    </div>
+  </section>
+
+  <Contact data={data} />
+  <Footer name={data.name} />
+
+  <script type="application/ld+json">{JSON.stringify(faqJsonld)}</script>
+</Layout>
+
+<style is:global>
+  .reveal { opacity: 0; transform: translateY(8px); transition: opacity .45s ease, transform .45s ease; transition-delay: var(--delay, 0ms); }
+  .reveal.is-inview { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
+</style>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-inview'); io.unobserve(e.target); } });
+  }, { threshold: 0.18 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>

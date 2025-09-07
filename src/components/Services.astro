@@ -3,7 +3,7 @@ import Icon from './Icon.astro'; // même dossier que Services.astro
 
 const services = [
   { title: "Enlèvement d’épave à domicile (gratuit)", desc: "Prise en charge complète, zéro frais cachés.", icon: "truck" },
-  { title: "Remorquage / dépannage", desc: "Intervention rapide en 1–2 h selon disponibilité.", icon: "tow" },
+  { title: "Dépannage auto 24/7 (toutes distances)", desc: "Disponible 24h/24 et 7j/7. Intervention et remorquage sur devis, partout.", icon: "tow" },
   { title: "Véhicules accidentés, brûlés, inondés", desc: "Traitement et dépollution réglementaires.", icon: "shield" },
   { title: "Utilitaires & camping-cars", desc: "Sur devis, enlèvement rapide.", icon: "van" },
   { title: "Moto / scooter", desc: "Récupération et certificat de destruction.", icon: "moto" },
@@ -20,7 +20,12 @@ const services = [
 
   <header class="mb-10">
     <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Nos services</h2>
-    <p class="mt-2 text-gray-600">Enlèvement d’épaves gratuit à domicile, partout autour de Toulouse (100 km).</p>
+
+    <p class="mt-2 text-gray-600">
+      Enlèvement d’épaves <strong>gratuit</strong> à domicile (rayon de 100 km autour de Toulouse sans frais).
+      <br class="hidden sm:block" />
+      <strong>Dépannage & remorquage 24/7</strong>, <em>toutes distances</em>, sur devis.
+    </p>
   </header>
 
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
