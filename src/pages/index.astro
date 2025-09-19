@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro'; // 👈 ajout
 import MobileCTA from '../components/MobileCTA.astro';
 import Hero from '../components/Hero.astro';
 import Services from '../components/Services.astro';
@@ -57,5 +58,4 @@ const jsonld = {
   <div class="mx-auto max-w-6xl px-6">
     <EcoEngagement className="mt-10" />
   </div>
-  <Footer name={data.name} />
 </Layout>

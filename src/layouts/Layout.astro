@@ -11,6 +11,10 @@ const canonical = Astro.url?.href ?? '/';
 
 import "../styles/global.css";
 import Base from "./Base.astro";
+
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { data } from "../data/siteData";
 ---
 
 <!DOCTYPE html>
@@ -54,6 +58,13 @@ import Base from "./Base.astro";
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7KJZQ23"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
-    <slot />
+
+    <Header phone={data.phone} phoneCompact={data.phoneCompact} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer name={data.name} />
   </body>
 </html>
