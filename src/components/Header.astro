@@ -13,93 +13,166 @@ import { Picture } from 'astro:assets';
 import logo from '../../public/favicon-light-32.png';
 ---
 
-
 <header class="sticky top-0 z-40 bg-white/70 backdrop-blur supports-[backdrop-filter]:bg-white/70">
-<div class="mx-auto max-w-6xl px-6">
-<div class="flex h-14 items-center justify-between border-b border-zinc-200/70">
-<!-- Logo / Title -->
-<a href="/" class="group flex items-center gap-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-<Picture
-  src={logo}
-  alt="Epaviste Express"
-  widths={[48, 96, 192]}     /* tu peux ajuster selon tes besoins */
-  sizes="32px"
-  formats={['avif', 'webp']} /* Astro génère aussi le fallback */
-  loading="eager"            /* rapide pour le logo */
-  fetchpriority="high"
-  decoding="async"
-  class="h-6 w-6 object-contain"
-  style="aspect-ratio:1/1;"
-/>
-<span class="text-sm font-semibold tracking-tight text-zinc-800 group-hover:text-zinc-900 uppercase">Epaviste Express Toulouse</span>
-</a>
+  <div class="mx-auto max-w-6xl px-6">
+    <div class="flex h-14 items-center justify-between border-b border-zinc-200/70">
+      <!-- Logo / Title -->
+      <a href="/" class="group flex items-center gap-2 py-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+        <Picture
+          src={logo}
+          alt="Epaviste Express"
+          widths={[48, 96, 192]}
+          sizes="32px"
+          formats={['avif', 'webp']}
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+          class="h-6 w-6 object-contain"
+          style="aspect-ratio:1/1;"
+        />
+        <span class="text-sm font-semibold tracking-tight text-zinc-800 group-hover:text-zinc-900 uppercase">Epaviste Express Toulouse</span>
+      </a>
 
+      <!-- Desktop nav -->
+      <nav class="hidden items-center gap-6 md:flex" aria-label="Navigation principale">
+        <a href="/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Accueil</a>
+        <a href="/epaviste/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Épaviste</a>
 
-<!-- Desktop nav -->
-<nav class="hidden items-center gap-6 md:flex" aria-label="Navigation principale">
-<a href="/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Accueil</a>
-<a href="/epaviste/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Épaviste</a>
+        <!-- Services dropdown (desktop) -->
+        <div class="relative group" aria-label="Menu Services">
+          <button
+            id="services-trigger"
+            type="button"
+            class="text-sm text-zinc-600 hover:text-zinc-900 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500"
+            aria-haspopup="menu"
+            aria-expanded="false"
+            aria-controls="menu-services"
+            data-dropdown-trigger
+          >
+            <span>Services</span>
+            <svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <path d="M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/>
+            </svg>
+          </button>
 
+          <ul
+            id="menu-services"
+            role="menu"
+            aria-labelledby="services-trigger"
+            data-dropdown-panel
+            class="invisible absolute left-0 top-full mt-2 w-60 translate-y-1 rounded-xl border border-zinc-200 bg-white p-2 opacity-0 shadow-lg ring-1 ring-black/5 transition-[opacity,transform,visibility] group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 focus-within:visible focus-within:opacity-100"
+          >
+            <li role="none">
+              <a role="menuitem" aria-label="Tous les services" href="/services/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Tous les services</a>
+            </li>
+            <li role="none">
+              <a role="menuitem" aria-label="Dépollution" href="/depollution/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Dépollution</a>
+            </li>
+            <li role="none">
+              <a role="menuitem" aria-label="Certificat de destruction" href="/certificat-destruction/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Certificat de destruction</a>
+            </li>
+            <li role="none">
+              <a role="menuitem" aria-label="Dépannage" href="/depannage/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Dépannage</a>
+            </li>
+          </ul>
+        </div>
 
-<!-- Services dropdown -->
-<div class="relative group">
-<button class="text-sm text-zinc-600 hover:text-zinc-900 inline-flex items-center gap-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" aria-haspopup="true" aria-expanded="false" data-dropdown-trigger>
-Services
-<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>
-</button>
-<div class="invisible absolute left-0 top-full mt-2 w-60 translate-y-1 rounded-xl border border-zinc-200 bg-white p-2 opacity-0 shadow-lg ring-1 ring-black/5 transition-[opacity,transform,visibility] group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 focus-within:visible focus-within:opacity-100" data-dropdown-panel>
-<a href="/services/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Tous les services</a>
-<a href="/depollution/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Dépollution</a>
-<a href="/certificat-destruction/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Certificat de destruction</a>
-<a href="/depannage/" class="block rounded-lg px-3 py-2 text-sm text-zinc-700 hover:bg-zinc-50">Dépannage</a>
+        <a href="/zones/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Zones d’intervention</a>
+        <a href="/blog/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Blog</a>
+        <a href="/contact/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Contact</a>
+      </nav>
+
+      <!-- Actions (phone + hamburger) -->
+      <div class="flex items-center gap-2">
+        <a href={`tel:${phoneCompact}`} aria-label={`Appeler Epaviste Express Toulouse au ${phone}`} class="hidden rounded-full border border-zinc-300/80 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50 md:inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+          <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/></svg>
+          <span>Appeler</span>
+        </a>
+
+        <!-- Hamburger -->
+        <button type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300/80 text-zinc-700 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 md:hidden" data-menu-trigger>
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu (dialog) — déplacé hors du header + z-index élevé -->
+<div class="fixed inset-0 z-[9999] hidden" role="dialog" aria-modal="true" data-menu-overlay>
+  <!-- + transparence & blur -->
+  <div class="absolute inset-0 bg-black/60 backdrop-blur-[2px]" data-menu-close></div>
+  <aside id="mobile-menu" class="absolute right-0 top-0 h-full w-[82%] max-w-sm translate-x-full overflow-y-auto bg-white p-5 shadow-xl transition-transform will-change-transform" data-menu-panel>
+    <div class="mb-4 flex items-center justify-between">
+      <span class="text-sm font-semibold text-zinc-800">Menu</span>
+      <button type="button" aria-label="Fermer le menu" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300/80 text-zinc-700 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" data-menu-close>
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <nav class="space-y-1" aria-label="Navigation mobile">
+      <a href="/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Accueil</a>
+      <a href="/epaviste/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Épaviste</a>
+
+      <details class="group rounded-lg">
+        <summary class="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50">
+          <span>Services</span>
+          <svg class="h-4 w-4 transition group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>
+        </summary>
+        <div class="ml-1 space-y-1 border-l border-zinc-200 pl-4">
+          <a href="/services/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Tous les services</a>
+          <a href="/depollution/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Dépollution</a>
+          <a href="/certificat-destruction/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Certificat de destruction</a>
+          <a href="/depannage/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Dépannage</a>
+        </div>
+      </details>
+
+      <a href="/zones/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Zones d’intervention</a>
+      <a href="/blog/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Blog</a>
+      <a href="/contact/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50" data-menu-close>Contact</a>
+
+      <a href={`tel:${phoneCompact}`} class="mt-2 inline-flex items-center gap-2 rounded-full border border-zinc-300/80 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50" data-menu-close>
+        <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/></svg>
+        <span>Appeler</span>
+      </a>
+    </nav>
+  </aside>
 </div>
-</div>
 
+<!-- Mini script pour le menu mobile (ouvre/ferme via les data-*) -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const trigger = document.querySelector('[data-menu-trigger]');
+    const overlayContainer = document.querySelector('[data-menu-overlay]');
+    const panel = document.querySelector('[data-menu-panel]');
+    const closers = document.querySelectorAll('[data-menu-close]');
 
-<a href="/zones/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Zones d’intervention</a>
-<a href="/blog/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Blog</a>
-<a href="/contact/" class="text-sm text-zinc-600 hover:text-zinc-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">Contact</a>
-</nav>
+    const lockScroll = () => document.documentElement.classList.add('overflow-hidden');
+    const unlockScroll = () => document.documentElement.classList.remove('overflow-hidden');
 
+    const openMenu = () => {
+      if (!overlayContainer || !panel) return;
+      overlayContainer.classList.remove('hidden');
+      panel.classList.remove('translate-x-full');
+      trigger?.setAttribute('aria-expanded', 'true');
+      lockScroll();
+    };
 
-<!-- Actions (phone + hamburger) -->
-<div class="flex items-center gap-2">
-<a href={`tel:${phoneCompact}`} aria-label={`Appeler Epaviste Express Toulouse au ${phone}`} class="hidden rounded-full border border-zinc-300/80 px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-50 md:inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
-<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/></svg>
-<span>Appeler</span>
-</a>
+    const closeMenu = () => {
+      if (!overlayContainer || !panel) return;
+      overlayContainer.classList.add('hidden');
+      panel.classList.add('translate-x-full');
+      trigger?.setAttribute('aria-expanded', 'false');
+      unlockScroll();
+    };
 
-
-<!-- Hamburger -->
-<button type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300/80 text-zinc-700 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 md:hidden" data-menu-trigger>
-<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-</button>
-</div>
-</div>
-</div>
-
-
-<!-- Mobile menu (dialog) -->
-<div class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" data-menu-overlay>
-<div class="absolute inset-0 bg-black/40" data-menu-close></div>
-<aside id="mobile-menu" class="absolute right-0 top-0 h-full w-[82%] max-w-sm translate-x-full overflow-y-auto bg-white p-5 shadow-xl transition-transform will-change-transform" data-menu-panel>
-<div class="mb-4 flex items-center justify-between">
-<span class="text-sm font-semibold text-zinc-800">Menu</span>
-<button type="button" aria-label="Fermer le menu" class="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-300/80 text-zinc-700 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500" data-menu-close>
-<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-</button>
-</div>
-
-
-<nav class="space-y-1" aria-label="Navigation mobile">
-<a href="/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50">Accueil</a>
-<a href="/epaviste/" class="block rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50">Épaviste</a>
-
-
-<details class="group rounded-lg">
-<summary class="flex cursor-pointer list-none items-center justify-between rounded-lg px-3 py-2 text-[15px] text-zinc-800 hover:bg-zinc-50">
-<span>Services</span>
-<svg class="h-4 w-4 transition group-open:rotate-180" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21a.75.75 0 011.06.02L10 11.187l3.71-3.956a.75.75 0 111.08 1.04l-4.25 4.53a.75.75 0 01-1.08 0L5.21 8.27a.75.75 0 01.02-1.06z"/></svg>
-</summary>
-<div class="ml-1 space-y-1 border-l border-zinc-200 pl-4">
+    trigger?.addEventListener('click', openMenu);
+    closers.forEach(el => el.addEventListener('click', closeMenu));
+    overlayContainer?.addEventListener('click', (e) => {
+      if (e.target === overlayContainer) closeMenu();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+  });
 </script>
