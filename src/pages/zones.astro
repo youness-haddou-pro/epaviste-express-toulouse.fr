@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import MobileCTA from '../components/MobileCTA.astro';
 import ZoneSection from '../components/Zone.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { data } from '../data/siteData';
 
 const title = `Zones d’intervention – Toulouse + 100 km (gratuit) | ${data.name}`;
@@ -139,7 +138,6 @@ const perimetre = [
   </section>
 
   <Contact data={data} />
-  <Footer name={data.name} />
 </Layout>
 
 <style is:global>

@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import MobileCTA from '../components/MobileCTA.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { data } from '../data/siteData';
 
 const title = `Dépannage auto 24/7 — toutes distances | ${data.name}`;
@@ -148,7 +147,6 @@ const faqJsonld = {
   </section>
 
   <Contact data={data} />
-  <Footer name={data.name} />
 
   <script type="application/ld+json">{JSON.stringify(faqJsonld)}</script>
 </Layout>

@@ -3,7 +3,6 @@ import Layout from '../layouts/Layout.astro';
 import MobileCTA from '../components/MobileCTA.astro';
 import ServicesSection from '../components/Services.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { data } from '../data/siteData';
 
 const title = `Dépannage auto 24/7 & épaves (gratuit) à Toulouse | ${data.name}`;
@@ -188,8 +187,6 @@ const faqJsonld = {
       </ul>
     </div>
   </section>
-
-  <Footer name={data.name} />
 
   <!-- JSON-LD FAQ -->
   <script type="application/ld+json">{JSON.stringify(faqJsonld)}</script>

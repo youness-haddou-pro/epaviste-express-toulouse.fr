@@ -1,61 +1,362 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.astro'; // 👈 ajout
-import MobileCTA from '../components/MobileCTA.astro';
-import Hero from '../components/Hero.astro';
-import Services from '../components/Services.astro';
-import Zone from '../components/Zone.astro';
-import Tarifs from '../components/Tarifs.astro';
-import Process from '../components/Process.astro';
-import Reviews from '../components/Reviews.astro';
-import LatestPosts from '../components/LatestPosts.astro';
-import Contact from '../components/Contact.astro';
-import EcoEngagement from '../components/EcoEngagement.astro';
-import Footer from '../components/Footer.astro';
-import { data } from '../data/siteData';
+import '../styles/global.css';
+import Header from '../components/Header.astro';
 
-const title = `Épaviste Toulouse – Enlèvement gratuit en 1–2 h | ${data.name}`;
-const description = "Enlèvement d’épaves gratuit à Toulouse et 100 km autour. Intervention en 1–2 h, certificat de destruction (avec ou sans carte grise), zéro frais cachés. Appelez le 07 75 72 60 36.";
-const jsonld = {
+const phone = '+33 7 75 72 60 36';
+const phoneCompact = '+33775726036';
+const phoneHref = 'tel:+33775726036';
+const contactHref = '/contact';
+const siteName = 'ÉPAVISTE EXPRESS TOULOUSE';
+const title = 'Épaviste à Toulouse — Enlèvement gratuit & rapide 7j/7 en Occitanie';
+const description =
+  "Épaviste gratuit à Toulouse et en Occitanie : enlèvement d'épaves (VHU), certificat de destruction, prise en charge complète. Intervention rapide 7j/7. Appelez maintenant.";
+const canonical = 'https://epaviste-express-toulouse.fr/';
+const seeMoreHref = '/services';
+const siret = '805 112 612 00033';
+
+// Si tu as une adresse physique, remplis ces champs pour booster le référencement local
+const hasAddress = false;
+const address = {
+  streetAddress: '—',
+  postalCode: '31000',
+  addressLocality: 'Toulouse',
+  addressRegion: 'Occitanie',
+  addressCountry: 'FR'
+};
+
+// Horaires — si réellement 24/7, laisse comme ça
+const openingHours = [
+  'Mo-Su 00:00-23:59',
+];
+
+// Villes principales servies (extrait — évite le keyword stuffing, garde-le naturel)
+const cities = [
+  'Toulouse', 'Blagnac', 'Colomiers', 'Tournefeuille', 'Ramonville', 'Balma',
+  'Muret', 'Plaisance-du-Touch', 'Cugnaux', 'L’Union', 'Castanet-Tolosan',
+  'Saint-Orens', 'Labège', 'Portet-sur-Garonne', 'Fenouillet', 'Bruguières',
+  'Albi', 'Montauban', 'Castres'
+];
+
+// Données structurées LocalBusiness (AutoWrecker)
+const ldLocalBusiness = {
   '@context': 'https://schema.org',
-  '@type': 'AutomotiveBusiness',
-  name: data.name,
-  telephone: data.phoneCompact,
-  email: data.email,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: data.address.street,
-    postalCode: data.address.postalCode,
-    addressLocality: data.address.city,
-    addressRegion: data.address.region,
-    addressCountry: 'FR',
-  },
-  areaServed: 'Toulouse et 100 km',
-  openingHours: data.hours,
-  priceRange: '€',
-  url: '/',
-  image: '/images/epaviste-hero.png',
-  makesOffer: [{
-    '@type': 'Offer',
-    name: "Enlèvement d'épave gratuit",
-    price: 0,
-    priceCurrency: 'EUR',
-    eligibleRegion: { '@type': 'Place', name: 'Toulouse (100 km)' },
-  }],
+  '@type': 'AutoWrecker',
+  name: siteName,
+  url: canonical,
+  image: `${canonical}favicon-light-512.png`,
+  telephone: '+33775726036',
+  areaServed: [{ '@type': 'AdministrativeArea', name: 'Occitanie' }, ...cities.map(c => ({ '@type': 'City', name: c }))],
+  openingHours,
+  priceRange: '€€',
+  identifier: [{ '@type': 'PropertyValue', propertyID: 'SIRET', value: siret }],
+  ...(hasAddress && {
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: address.streetAddress,
+      postalCode: address.postalCode,
+      addressLocality: address.addressLocality,
+      addressRegion: address.addressRegion,
+      addressCountry: address.addressCountry
+    }
+  })
+};
+
+// Données structurées FAQ
+const ldFAQ = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: "L'enlèvement d'épave est-il gratuit ?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Oui, l'enlèvement est 100% gratuit. Appelez maintenant !"
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Quels documents sont nécessaires ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Carte grise, pièce d’identité, certificat de non-gage si possible. Nous vous guidons pas à pas."
+      }
+    },
+    {
+      '@type': 'Question',
+      name: 'Sous quel délai intervenez-vous ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Intervention rapide 7j/7, selon disponibilité. Souvent sous 24h à Toulouse et alentours."
+      }
+    },
+    {
+      '@type': 'Question',
+      name: "Remettez-vous un certificat de destruction (VHU) ?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Oui, vous recevez un certificat officiel prouvant la prise en charge du VHU."
+      }
+    }
+  ]
 };
 ---
 
-<Layout title={title} description={description} ogImage="/images/epaviste-hero.png" jsonld={jsonld} lang="fr">
-  <MobileCTA phoneCompact={data.phoneCompact} />
-  <Hero data={data} />
-  <Services />
-  <Zone data={data} />
-  <Tarifs />
-  <Process phone={data.phone} />
-  <Reviews />
-  <LatestPosts limit={3} />
-  <Contact data={data} />
-  <div class="mx-auto max-w-6xl px-6">
-    <EcoEngagement className="mt-10" />
-  </div>
-</Layout>
+<!doctype html>
+<html lang="fr" class="h-full">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="fr-FR" href={canonical} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content="#1FAF5A" />
+
+    <!-- Favicons -->
+    <link rel="icon" href="/favicon-light-512.png" sizes="512x512" />
+    <link rel="icon" href="/favicon-192.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preload" as="image" href="/favicon-light-512.png" imagesrcset="/favicon-light-512.png 512w" imagesizes="(max-width:768px) 128px, 160px" fetchpriority="high" />
+
+    <!-- Open Graph / Twitter -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={`${canonical}og-cover.jpg`} />
+    <meta property="og:image:alt" content="Camion d'épaviste à Toulouse" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${canonical}og-cover.jpg`} />
+
+    <!-- Données structurées -->
+    <script type="application/ld+json">
+      {JSON.stringify(ldLocalBusiness)}
+    </script>
+    <script type="application/ld+json">
+      {JSON.stringify(ldFAQ)}
+    </script>
+
+    <!-- Styles rapides -->
+    <style>
+      html { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; }
+      .shadow-soft { box-shadow: 0 10px 25px rgba(0,0,0,.06); }
+
+      /* Styles communs CTA */
+      .cta-base { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-weight:800; padding:.75rem 1.25rem; border-radius:.75rem; transition: transform .08s ease, box-shadow .15s ease, background .15s ease; }
+      .cta-base:active { transform: translateY(1px); }
+      /* Variante A : bouton plein, vert pro */
+      .cta-A { background:#1FAF5A; color:#fff; box-shadow:0 8px 20px rgba(31,175,90,.18); }
+      .cta-A:hover { background:#138843; }
+      /* Variante B : gradient + pill + glow subtil */
+      .cta-B { background:linear-gradient(135deg,#22c55e 0%, #16a34a 100%); color:#fff; border-radius:999px; box-shadow:0 10px 26px rgba(22,163,74,.25), inset 0 0 0 1px rgba(255,255,255,.15); }
+      .cta-B:hover { filter:brightness(0.98); }
+      /* Sticky: même logique mais pleine largeur */
+      .sticky-cta-A { background:#1FAF5A; }
+      .sticky-cta-B { background:linear-gradient(135deg,#22c55e 0%, #16a34a 100%); }
+
+      /* Petits badges */
+      .chip { border-radius:999px; background:#EAF9F0; color:#0f8e48; padding:.25rem .6rem; font-size:.75rem; font-weight:600; display:inline-flex; gap:.5rem; align-items:center; }
+      .icon { width:1rem;height:1rem; }
+      .icon path{ stroke:currentColor; }
+
+      /* === Sticky CTA mobile — styles améliorés === */
+      .sticky-bar { border-radius:999px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,.14); border:1px solid rgba(0,0,0,.06); backdrop-filter:saturate(140%) blur(4px); }
+      .sticky-btn { display:flex; align-items:center; justify-content:center; gap:.55rem; padding:.9rem 1rem; font-weight:800; font-size:14px; line-height:1.15; }
+      .sticky-btn svg { width:18px; height:18px; flex:0 0 auto; opacity:.95; }
+      .sticky-label { display:block; text-align:center; line-height:1.15; }
+      .sticky-sep { width:1px; background:rgba(255,255,255,.25); }
+      @media (max-width:360px){ .sticky-btn{ padding:.8rem .8rem; font-size:13px; } .sticky-btn svg{ width:17px;height:17px; } }
+
+      /* Trust strip léger et rassurant */
+      .top-trust{background:linear-gradient(180deg,#fff,#f7fdf9);border-bottom:1px solid rgba(31,175,90,.08)}
+      .trust-list{display:flex;flex-wrap:wrap;gap:.5rem .6rem;align-items:center; justify-content: center;}
+      .trust-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .6rem;border-radius:999px;background:#EAF9F0;color:#0f8e48;font-weight:600;font-size:.8rem}
+      .trust-chip svg{width:14px;height:14px;stroke-width:2}
+      @media (max-width:640px){.trust-chip{font-size:.75rem}}
+    </style>
+  </head>
+
+  <body class="h-full w-full bg-gradient-to-b from-[#f8fffa] to-[#e6f7ed] text-[#333] flex flex-col">
+    <Header phone={phone} phoneCompact={phoneCompact} />
+
+    <!-- HERO compact -->
+    <main class="flex-1">
+      <section class="mx-auto max-w-screen-xl px-4 pt-8 pb-4 text-center">
+        <div class="chip">
+          <span>✅ Épaviste agréé VHU</span><span class="opacity-60">•</span><span>SIRET {siret}</span>
+        </div>
+
+        <h1 class="mx-auto mt-3 max-w-3xl text-[28px] md:text-[40px] leading-tight font-extrabold text-[#1FAF5A]">
+          Enlèvement gratuit d’épave à Toulouse — intervention rapide 7j/7
+        </h1>
+
+        <p class="mx-auto mt-2 max-w-2xl text-[15px] md:text-base text-slate-700">
+          Certificat officiel de destruction <span class="font-semibold">VHU</span> et prise en charge <span class="font-semibold">de A à Z</span>. 
+          <span class="text-[#0f8e48] font-medium">Intervention possible aujourd’hui même.</span>
+        </p>
+
+        <!-- CTA (texte + style changent via le script A/B) -->
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
+          <a href={phoneHref}
+            class="cta-base cta-A"
+            data-cta="primary"
+            aria-label={`Appeler ${phone}`}>
+            <!-- SVG téléphone -->
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/>
+            </svg>
+            <span data-cta-label>Appeler maintenant — Gratuit</span>
+          </a>
+
+          <a href={contactHref}
+            class="inline-flex items-center justify-center rounded-md border border-slate-300 bg-white px-4 py-3 font-medium text-slate-800 hover:bg-slate-50"
+            aria-label="Nous contacter via le formulaire">
+            💬 Nous écrire
+          </a>
+        </div>
+
+        <!-- Réassurances -->
+        <ul class="mx-auto mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl text-[13px] md:text-sm text-slate-700">
+          <li class="bg-white rounded-md border border-slate-200 p-2">✅ Intervention <span class="font-semibold">sous 24h</span></li>
+          <li class="bg-white rounded-md border border-slate-200 p-2">✅ Certificat <span class="font-semibold">officiel VHU</span></li>
+          <li class="bg-white rounded-md border border-slate-200 p-2">✅ Débarassage 100% <span class="font-semibold">gratuit</span></li>
+        </ul>
+
+        <p class="mt-2 text-[12px] font-semibold text-red-600">
+          ⏱️ Nombre d’enlèvements limité chaque jour — réservez votre créneau maintenant
+        </p>
+      </section>
+
+      <!-- SECTION SERVICES -->
+      <section id="services" class="mx-auto max-w-screen-xl px-4 py-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-[#E6F7ED] rounded-md p-6 flex items-center justify-center">
+            <img src="/favicon-light-512.png" width="160" height="160" alt="Camion épaviste - intervention à Toulouse" decoding="async" loading="lazy" class="w-28 h-28 md:w-40 md:h-40" />
+          </div>
+          <div class="md:col-span-2 bg-white rounded-md border border-slate-200 p-6 shadow-sm">
+            <h2 class="font-semibold text-xl mb-3">Nos services</h2>
+            <ul class="list-disc pl-5 space-y-1 text-slate-700">
+              <li>Enlèvement d’épaves (voitures, utilitaires, 2 roues)</li>
+              <li>Prise en charge VHU et transfert agréé</li>
+              <li>Certificat de destruction remis</li>
+              <li>Aide aux démarches (carte grise, non-gage)</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION ZONES -->
+      <section id="zones" class="mx-auto max-w-screen-xl px-4 py-6">
+        <div class="bg-white rounded-md border border-slate-200 p-6 shadow-sm">
+          <h2 class="font-semibold text-xl mb-3">Zones d’intervention — Toulouse & Occitanie</h2>
+          <p class="text-slate-700 mb-2">Intervention rapide selon disponibilité sur Toulouse et les communes alentours, ainsi que dans les principales villes d’Occitanie.</p>
+          <p class="text-slate-600 text-sm">Exemples&nbsp;: {cities.join(', ')}…</p>
+        </div>
+      </section>
+
+      <!-- SECTION FAQ -->
+      <section id="faq" class="mx-auto max-w-screen-xl px-4 py-6">
+        <div class="bg-white rounded-md border border-slate-200 p-6 shadow-sm">
+          <h2 class="font-semibold text-xl mb-3">Questions fréquentes</h2>
+          <details class="mb-2">
+            <summary class="font-medium cursor-pointer">L’enlèvement est-il vraiment gratuit&nbsp;?</summary>
+            <p class="mt-2 text-slate-700">Oui, l'enlèvement est 100% gratuit. Appelez maintenant !</p>
+          </details>
+          <details class="mb-2">
+            <summary class="font-medium cursor-pointer">Quels documents dois-je préparer&nbsp;?</summary>
+            <p class="mt-2 text-slate-700">Carte grise, pièce d’identité, certificat de situation administrative si possible. Nous vous assistons.</p>
+          </details>
+          <details class="mb-2">
+            <summary class="font-medium cursor-pointer">Quel délai d’intervention&nbsp;?</summary>
+            <p class="mt-2 text-slate-700">Très rapide sur la métropole toulousaine, souvent sous 24h.</p>
+          </details>
+          <details>
+            <summary class="font-medium cursor-pointer">Obtiendrai-je un certificat de destruction&nbsp;?</summary>
+            <p class="mt-2 text-slate-700">Oui, un certificat officiel VHU vous est remis.</p>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <!-- STICKY CTA MOBILE (amélioré + synchronisé avec A/B) -->
+    <div class="fixed md:hidden bottom-3 inset-x-3 z-50">
+      <div class="sticky-bar flex text-white">
+        <a
+          href={phoneHref}
+          class="flex-1 sticky-btn sticky-cta-A"
+          data-cta="sticky"
+          aria-label={`Appeler ${phone}`}
+        >
+          <!-- icône téléphone -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/>
+          </svg>
+          <span class="sticky-label" data-cta-label>Appeler maintenant — Gratuit</span>
+        </a>
+
+        <div class="sticky-sep"></div>
+
+        <a
+          href={contactHref}
+          class="flex-1 sticky-btn bg-[#0f8e48]/90"
+          aria-label="Formulaire de contact"
+        >
+          💬 Nous écrire
+        </a>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 py-4">
+      <div class="mx-auto max-w-screen-xl px-4 text-center text-xs text-slate-600">
+        © {new Date().getFullYear()} {siteName} · <a href="/mentions-legales" class="hover:underline">Mentions légales</a> · <a href="/confidentialite" class="hover:underline">Confidentialité</a> · <a href={phoneHref} class="font-semibold hover:underline">📞 {phone}</a>
+      </div>
+    </footer>
+
+    <!-- Script A/B minimaliste -->
+    <script>
+      (function() {
+        try {
+          var KEY = 'ctaVariant';
+          var variant = localStorage.getItem(KEY);
+          if (!variant) {
+            variant = Math.random() < 0.5 ? 'A' : 'B';
+            localStorage.setItem(KEY, variant);
+          }
+          var primary = document.querySelector('[data-cta="primary"]');
+          var sticky = document.querySelector('[data-cta="sticky"]');
+          var labels = document.querySelectorAll('[data-cta-label]');
+
+          var labelA = 'Appeler maintenant — Gratuit';
+          var labelB = 'Urgence ? Appeler 24/7';
+
+          if (primary) {
+            primary.classList.remove('cta-A','cta-B');
+            primary.classList.add(variant === 'A' ? 'cta-A' : 'cta-B');
+          }
+          if (sticky) {
+            sticky.classList.remove('sticky-cta-A','sticky-cta-B');
+            sticky.classList.add(variant === 'A' ? 'sticky-cta-A' : 'sticky-cta-B');
+          }
+          labels.forEach(function(el){
+            el.textContent = (variant === 'A') ? labelA : labelB;
+          });
+        } catch(e) {}
+      })();
+    </script>
+    <noscript>
+      <!-- Fallback sans JS : Variante A -->
+      <style>
+        [data-cta="primary"]{background:#1FAF5A;color:#fff;}
+        [data-cta="sticky"]{background:#1FAF5A;color:#fff;}
+      </style>
+    </noscript>
+  </body>
+</html>

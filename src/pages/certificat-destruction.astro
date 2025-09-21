@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MobileCTA from '../components/MobileCTA.astro';
-import Footer from '../components/Footer.astro';
 import { data } from '../data/siteData';
 
 const title = `Certificat de destruction VHU – Délivrance & délais | ${data.name}`;
@@ -120,8 +119,6 @@ const docs = [
       <a href="/services/" class="rounded-lg px-3 py-1 ring-1 ring-gray-300 transition hover:bg-gray-100">Voir nos services</a>
     </div>
   </section>
-
-  <Footer name={data.name} />
 
   <!-- JSON-LD HowTo + FAQ -->
   <script type="application/ld+json">{JSON.stringify(howtoJsonld)}</script>

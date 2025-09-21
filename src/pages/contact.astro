@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import MobileCTA from '../components/MobileCTA.astro';
 import Contact from '../components/Contact.astro';
-import Footer from '../components/Footer.astro';
 import { data } from '../data/siteData';
 
 const title = `Contact – Épaviste à Toulouse (réponse rapide) | ${data.name}`;
@@ -75,8 +74,6 @@ const jsonld = {
       </ul>
     </div>
   </section>
-
-  <Footer name={data.name} />
 
   <style is:global>
     .reveal { opacity:0; transform:translateY(8px); transition:opacity .45s ease, transform .45s ease; transition-delay:var(--delay,0ms); }
