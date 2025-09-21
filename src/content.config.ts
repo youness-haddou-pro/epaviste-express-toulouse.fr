@@ -14,7 +14,7 @@ const blog = defineCollection({
 			region: z.string().optional(),
 			author: z.string().default("Rédaction"),
 			readingTime: z.string().optional(),
-			heroImage: image().optional(), // ← plus d'import "image"
+			heroImage: image().optional(),
 			heroAlt: z.string().optional(),
 			draft: z.boolean().default(false),
 		}),

@@ -16,7 +16,7 @@ ville: "Toulouse"
 region: "Occitanie"
 author: "Équipe Épaviste"
 readingTime: "6 min"
-heroImage: ../../assets/images/blog/epave-toulouse.png
+heroImage: ../../assets/images/blog/epaviste-toulouse.png
 heroAlt: "Dépanneuse emportant une épave à Toulouse"
 draft: false
 jsonld:
@@ -24,7 +24,7 @@ jsonld:
     "@type": Article
     headline: "Enlèvement d’épave à Toulouse : guide complet"
     description: "Tout savoir sur l’enlèvement d’épaves à Toulouse : démarches, délais, certificat de destruction, coûts et zones couvertes."
-    image: "https://epaviste-express-toulouse.fr/assets/images/blog/epave-toulouse.png"
+    image: "https://epaviste-express-toulouse.fr/assets/images/blog/epaviste-toulouse.png"
     author:
       "@type": Organization
       name: "Épaviste Express Toulouse"
