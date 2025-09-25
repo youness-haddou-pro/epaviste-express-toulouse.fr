@@ -1,77 +1,39 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
+import { data } from '../data/siteData';
 
-const phone = '+33 7 75 72 60 36';
-const phoneCompact = '+33775726036';
-const phoneHref = 'tel:+33775726036';
+// ===== Données centralisées =====
+const siteName = data.name ?? 'ÉPAVISTE EXPRESS TOULOUSE';
+const phone = data.phone ?? '+33 7 75 72 60 36';
+const phoneCompact = data.phoneCompact ?? '+33775726036';
+const phoneHref = `tel:${phoneCompact}`;
 const contactHref = '/contact';
-const siteName = 'ÉPAVISTE EXPRESS TOULOUSE';
+const seeMoreHref = '/services';
+const siret = data.siret ?? '—';
+const canonical = data.canonical ?? 'https://epaviste-express-toulouse.fr/';
 const title = 'Épaviste à Toulouse — Enlèvement gratuit & rapide 7j/7 en Occitanie';
 const description =
   "Épaviste gratuit à Toulouse et en Occitanie : enlèvement d'épaves (VHU), certificat de destruction, prise en charge complète. Intervention rapide 7j/7. Appelez maintenant.";
-const canonical = 'https://epaviste-express-toulouse.fr/';
-const seeMoreHref = '/services';
-const siret = '805 112 612 00033';
 
-// Si tu as une adresse physique, remplis ces champs pour booster le référencement local
-const hasAddress = false;
+// Adresse (incluse si disponible)
+const hasAddress = Boolean(data.address);
 const address = {
-  streetAddress: '—',
-  postalCode: '31000',
-  addressLocality: 'Toulouse',
-  addressRegion: 'Occitanie',
-  addressCountry: 'FR'
+  streetAddress: data.address?.street ?? '—',
+  postalCode: data.address?.postalCode ?? '31000',
+  addressLocality: data.address?.city ?? 'Toulouse',
+  addressRegion: data.address?.region ?? 'Occitanie',
+  addressCountry: (data.address?.country === 'France' ? 'FR' : (data.address?.country ?? 'FR'))
 };
 
-// Horaires — si réellement 24/7, laisse comme ça
-const openingHours = [
-  'Mo-Su 00:00-23:59',
-];
+// Horaires (depuis data.hours si présent, sinon 24/7)
+const openingHours = Array.isArray(data.hours) ? data.hours : [data.hours ?? 'Mo-Su 00:00-23:59'];
 
-// Villes principales servies (extrait — évite le keyword stuffing, garde-le naturel)
-const cities = [
-  // — 31 • Haute-Garonne (Métropole & proches)
+// Villes servies (centralisé)
+const cities = (data as any).cities?.length ? (data as any).cities : [
+  // Fallback minimal
   'Toulouse','Blagnac','Colomiers','Tournefeuille','Ramonville-Saint-Agne','Balma','L’Union','Saint-Orens-de-Gameville','Labège','Castanet-Tolosan',
-  'Cugnaux','Plaisance-du-Touch','Fonsorbes','Saint-Jean','Aucamville','Fenouillet','Aussonne','Beauzelle','Cornebarrieu','Seilh','Lespinasse',
-  'Bruguières','Gratentour','Saint-Alban','Launaguet','Quint-Fonsegrives','Pechbonnieu','Montrabé','Muret','Portet-sur-Garonne','Roques','Roquettes',
-  'Villeneuve-Tolosane','Frouzins','Seysses','Pins-Justaret','Pinsaguel','Eaunes','Pibrac','Léguevin','Brax','Saint-Lys','Grenade','Castelginest',
-  'Gagnac-sur-Garonne','Montjoire','Villemur-sur-Tarn','Fronton','Bessières','Buzet-sur-Tarn','Bouloc','Villaudric','Saint-Jory','Saint-Sauveur',
-  'Pechbusque','Vigoulet-Auzil','Aureville','Vieille-Toulouse','Balma-Gramont','Escalquens','Saint-Geniès-Bellevue','Drémil-Lafage','Flourens',
-  'Montgiscard','Donneville','Pompertuzat','Ayguesvives','Montlaur','Baziège','Villefranche-de-Lauragais','Revel','Nailloux','Auterive','Carbonne',
-  'Rieumes','Le Fauga','Longages','Cazères','Saint-Gaudens','Bagnères-de-Luchon','L’Isle-en-Dodon','Lavelanet-de-Comminges','Martres-Tolosane',
-  // — 82 • Tarn-et-Garonne
-  'Montauban','Moissac','Castelsarrasin','Montech','Bressols','Lafrançaise','Verdun-sur-Garonne','Grisolles','Finhan','Labastide-Saint-Pierre',
-  // — 81 • Tarn
-  'Albi','Castres','Gaillac','Graulhet','Mazamet','Lavaur','Saint-Sulpice-la-Pointe','Carmaux','Lisle-sur-Tarn','Rabastens','Sorèze',
-  // — 11 • Aude
-  'Carcassonne','Narbonne','Castelnaudary','Lézignan-Corbières','Trèbes','Gruissan','Sigean','Port-la-Nouvelle',
-  // — 34 • Hérault
-  'Montpellier','Béziers','Sète','Agde','Frontignan','Lunel','Lattes','Mauguio','Castelnau-le-Lez','Saint-Jean-de-Védas','Juvignac','Grabels',
-  'Vendargues','Pérols','Clapiers','Jacou','Saint-Gély-du-Fesc','Fabrègues','Prades-le-Lez','Pignan','Villeneuve-lès-Maguelone',
-  // — 30 • Gard
-  'Nîmes','Alès','Bagnols-sur-Cèze','Beaucaire','Vauvert','Uzès','Marguerittes','Saint-Gilles','Le Grau-du-Roi','Villeneuve-lès-Avignon',
-  // — 66 • Pyrénées-Orientales
-  'Perpignan','Canet-en-Roussillon','Saint-Estève','Cabestany','Saint-Cyprien','Argelès-sur-Mer','Rivesaltes','Le Barcarès','Elne','Céret',
-  // — 65 • Hautes-Pyrénées
-  'Tarbes','Lourdes','Bagnères-de-Bigorre','Lannemezan','Vic-en-Bigorre','Odos','Aureilhan',
-  // — 12 • Aveyron
-  'Rodez','Millau','Onet-le-Château','Villefranche-de-Rouergue','Decazeville','Sébazac-Concourès','Luc-la-Primaube',
-  // — 32 • Gers
-  'Auch','Condom','Fleurance','L’Isle-Jourdain','Gimont','Eauze','Mirande',
-  // — 46 • Lot
-  'Cahors','Figeac','Gourdon','Pradines','Saint-Céré','Souillac','Gramat',
-  // — 09 • Ariège
-  'Foix','Pamiers','Saint-Jean-du-Falga','Lavelanet','Tarascon-sur-Ariège','Saverdun','Varilhes',
-  // — 48 • Lozère
-  'Mende','Marvejols','Langogne','Saint-Chély-d’Apcher','Florac',
-  // — 11/34 littoral (compléments utiles)
-  'Vias','Bessan','Montagnac','Mèze','Marseillan','Balaruc-les-Bains','Balaruc-le-Vieux',
-  // — Autres pôles régionaux & proches
-  'Castanet','Saint-Orens','Labarthe-sur-Lèze','Villate','Noé','Capens','Miremont','Aurignac','Salies-du-Salat',
-  'Foix','Pamiers','Castelnaudary','Revel','Mazamet','Gaillac','Graulhet',
-  // — Occitanie (grandes villes déjà couvertes)
-  'Montpellier','Nîmes','Perpignan','Béziers','Narbonne','Carcassonne','Albi','Castres','Montauban','Rodez','Tarbes','Auch','Foix','Cahors','Mende'
+  'Cugnaux','Plaisance-du-Touch','Muret','Pibrac','Léguevin','Castelginest','Grenade'
 ];
 
 // Affichage zones (limite + dérivés)
@@ -86,8 +48,8 @@ const ldLocalBusiness = {
   name: siteName,
   url: canonical,
   image: `${canonical}favicon-light-512.png`,
-  telephone: '+33775726036',
-  areaServed: [{ '@type': 'AdministrativeArea', name: 'Occitanie' }, ...cities.map(c => ({ '@type': 'City', name: c }))],
+  telephone: phoneCompact,
+  areaServed: [{ '@type': 'AdministrativeArea', name: 'Occitanie' }, ...cities.map((c: string) => ({ '@type': 'City', name: c }))],
   openingHours,
   priceRange: '€€',
   identifier: [{ '@type': 'PropertyValue', propertyID: 'SIRET', value: siret }],
@@ -129,7 +91,7 @@ const ldFAQ = {
       name: 'Sous quel délai intervenez-vous ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Intervention rapide 7j/7, selon disponibilité. Souvent en mois de 2h à Toulouse et alentours."
+        text: "Intervention rapide 7j/7, selon disponibilité. Souvent en moins de 2h à Toulouse et alentours."
       }
     },
     {
@@ -193,13 +155,10 @@ const ldFAQ = {
       /* Styles communs CTA */
       .cta-base { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-weight:800; padding:.75rem 1.25rem; border-radius:.75rem; transition: transform .08s ease, box-shadow .15s ease, background .15s ease; }
       .cta-base:active { transform: translateY(1px); }
-      /* Variante A : bouton plein, vert pro */
       .cta-A { background:#1FAF5A; color:#fff; box-shadow:0 8px 20px rgba(31,175,90,.18); }
       .cta-A:hover { background:#138843; }
-      /* Variante B : gradient + pill + glow subtil */
       .cta-B { background:linear-gradient(135deg,#22c55e 0%, #16a34a 100%); color:#fff; border-radius:999px; box-shadow:0 10px 26px rgba(22,163,74,.25), inset 0 0 0 1px rgba(255,255,255,.15); }
       .cta-B:hover { filter:brightness(0.98); }
-      /* Sticky: même logique mais pleine largeur */
       .sticky-cta-A { background:#1FAF5A; }
       .sticky-cta-B { background:linear-gradient(135deg,#22c55e 0%, #16a34a 100%); }
 
@@ -208,7 +167,7 @@ const ldFAQ = {
       .icon { width:1rem;height:1rem; }
       .icon path{ stroke:currentColor; }
 
-      /* === Sticky CTA mobile — styles améliorés === */
+      /* Sticky CTA mobile */
       .sticky-bar { border-radius:999px; overflow:hidden; box-shadow:0 10px 28px rgba(0,0,0,.14); border:1px solid rgba(0,0,0,.06); backdrop-filter:saturate(140%) blur(4px); }
       .sticky-btn { display:flex; align-items:center; justify-content:center; gap:.55rem; padding:.9rem 1rem; font-weight:800; font-size:14px; line-height:1.15; }
       .sticky-btn svg { width:18px; height:18px; flex:0 0 auto; opacity:.95; }
@@ -216,7 +175,7 @@ const ldFAQ = {
       .sticky-sep { width:1px; background:rgba(255,255,255,.25); }
       @media (max-width:360px){ .sticky-btn{ padding:.8rem .8rem; font-size:13px; } .sticky-btn svg{ width:17px;height:17px; } }
 
-      /* Trust strip léger et rassurant */
+      /* Trust strip */
       .top-trust{background:linear-gradient(180deg,#fff,#f7fdf9);border-bottom:1px solid rgba(31,175,90,.08)}
       .trust-list{display:flex;flex-wrap:wrap;gap:.5rem .6rem;align-items:center; justify-content: center;}
       .trust-chip{display:inline-flex;align-items:center;gap:.4rem;padding:.35rem .6rem;border-radius:999px;background:#EAF9F0;color:#0f8e48;font-weight:600;font-size:.8rem}
@@ -244,13 +203,12 @@ const ldFAQ = {
           <span class="text-[#0f8e48] font-medium">Intervention possible aujourd’hui même.</span>
         </p>
 
-        <!-- CTA (texte + style changent via le script A/B) -->
+        <!-- CTA -->
         <div class="mt-4 flex flex-wrap items-center justify-center gap-2">
           <a href={phoneHref}
             class="cta-base cta-A"
             data-cta="primary"
             aria-label={`Appeler ${phone}`}>
-            <!-- SVG téléphone -->
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/>
             </svg>
@@ -267,7 +225,7 @@ const ldFAQ = {
         <!-- Réassurances -->
         <ul class="mx-auto mt-3 grid grid-cols-1 sm:grid-cols-3 gap-2 max-w-3xl text-[13px] md:text-sm text-slate-700">
           <li class="bg-white rounded-md border border-slate-200 p-2">✅ Débarassage 100% <span class="font-semibold">gratuit</span></li>
-          <li class="bg-white rounded-md border border-slate-200 p-2">✅ Intervention <span class="font-semibold">en mois de 2h</span></li>
+          <li class="bg-white rounded-md border border-slate-200 p-2">✅ Intervention <span class="font-semibold">en moins de 2h</span></li>
           <li class="bg-white rounded-md border border-slate-200 p-2">✅ Certificat <span class="font-semibold">officiel VHU</span></li>
         </ul>
 
@@ -298,19 +256,33 @@ const ldFAQ = {
       <section id="zones" class="mx-auto max-w-screen-xl px-4 py-6">
         <div class="bg-white rounded-md border border-slate-200 p-6 shadow-sm">
           <h2 class="font-semibold text-xl mb-3">Zones d’intervention — Toulouse &amp; Occitanie</h2>
-          <p class="text-slate-700 mb-2">
+          <p class="text-slate-700">
             Intervention rapide selon disponibilité sur Toulouse et les communes alentours, ainsi que dans les principales villes d’Occitanie.
           </p>
 
-          <p class="text-slate-600 text-sm">
-            <span class="font-medium">Exemples&nbsp;:</span>
-            {visibleCities.join(', ')}
+          <!-- Liste multi-colonnes discrète -->
+          <div class="mt-3">
+            <p class="text-slate-500 text-xs font-medium mb-1">Exemples&nbsp;:</p>
+
+            <!-- Liste visible -->
+            <ul class="cities-list">
+              {visibleCities.map((v) => (
+                <li><span>{v}</span></li>
+              ))}
+            </ul>
+
+            <!-- Liste masquée + bouton -->
             {hiddenCities.length > 0 && (
               <>
-                <span id="more-cities" style="display:none">, {hiddenCities.join(', ')}</span>
+                <ul id="more-cities" class="cities-list" style="display:none">
+                  {hiddenCities.map((v) => (
+                    <li><span>{v}</span></li>
+                  ))}
+                </ul>
+
                 <button
                   id="toggle-cities"
-                  class="ml-1 inline-flex items-center rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-semibold text-slate-800 hover:bg-slate-50"
+                  class="mt-2 inline-flex items-center rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-semibold text-slate-800 hover:bg-slate-50"
                   aria-expanded="false"
                   aria-controls="more-cities"
                   type="button"
@@ -319,10 +291,29 @@ const ldFAQ = {
                 </button>
               </>
             )}
-          </p>
+          </div>
         </div>
 
-        <!-- Script de bascule (no dépendance) -->
+        <!-- Styles discrets de la liste -->
+        <style>
+          .cities-list{
+            display:grid;
+            grid-template-columns: repeat(2,minmax(0,1fr));
+            gap:.25rem .75rem;
+            list-style: disc inside;
+            color:#64748b; /* slate-500 */
+            font-size: .8rem; /* ~text-sm- */
+            line-height:1.25rem;
+            margin:0;
+            padding:0 .25rem;
+          }
+          @media (min-width: 640px){ .cities-list{ grid-template-columns: repeat(3,minmax(0,1fr)); } }
+          @media (min-width: 1024px){ .cities-list{ grid-template-columns: repeat(4,minmax(0,1fr)); } }
+          .cities-list li{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+          .cities-list li::marker{ color:#cbd5e1; } /* slate-300, très discret */
+        </style>
+
+        <!-- Script de bascule -->
         <script>
           (function () {
             var btn = document.getElementById('toggle-cities');
@@ -333,7 +324,8 @@ const ldFAQ = {
             function update() {
               more.style.display = expanded ? '' : 'none';
               btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
-              btn.textContent = expanded ? 'Voir moins' : 'Voir tout (+' + (more.textContent.split(',').length) + ')';
+              var hiddenCount = more.querySelectorAll('li').length;
+              btn.textContent = expanded ? 'Voir moins' : 'Voir tout (+' + hiddenCount + ')';
             }
             btn.addEventListener('click', function () {
               expanded = !expanded;
@@ -368,7 +360,7 @@ const ldFAQ = {
       </section>
     </main>
 
-    <!-- STICKY CTA MOBILE (amélioré + synchronisé avec A/B) -->
+    <!-- STICKY CTA MOBILE -->
     <div class="fixed md:hidden bottom-3 inset-x-3 z-50">
       <div class="sticky-bar flex text-white">
         <a
@@ -377,7 +369,6 @@ const ldFAQ = {
           data-cta="sticky"
           aria-label={`Appeler ${phone}`}
         >
-          <!-- icône téléphone -->
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.14a2 2 0 0 1 2.11-.45c.83.29 1.7.5 2.6.62A2 2 0 0 1 22 16.92Z"/>
           </svg>
@@ -435,7 +426,6 @@ const ldFAQ = {
       })();
     </script>
     <noscript>
-      <!-- Fallback sans JS : Variante A -->
       <style>
         [data-cta="primary"]{background:#1FAF5A;color:#fff;}
         [data-cta="sticky"]{background:#1FAF5A;color:#fff;}

@@ -5,33 +5,54 @@ import ZoneSection from '../components/Zone.astro';
 import Contact from '../components/Contact.astro';
 import { data } from '../data/siteData';
 
+// 1) Source des villes centralisée (+ fallback compat zoneCities)
+const cities =
+  (data as any).cities?.length ? (data as any).cities :
+  (data as any).zoneCities?.length ? (data as any).zoneCities : [];
+
+// Pour maintenir la compat avec <ZoneSection /> qui lit data.zoneCities
+const dataForZone = { ...data, zoneCities: cities };
+
+// 2) Limiter l'affichage à 60 avec bouton Voir tout
+const MAX_CITIES_DISPLAY = 60;
+const visibleCities = cities.slice(0, MAX_CITIES_DISPLAY);
+const hiddenCities = cities.slice(MAX_CITIES_DISPLAY);
+
+// 3) Méta + JSON-LD
 const title = `Zones d’intervention – Toulouse + 100 km (gratuit) | ${data.name}`;
-const description = "Enlèvement d’épaves gratuit à Toulouse et jusqu’à 100 km : Haute-Garonne et villes voisines (Montauban, Albi, Auch, Castres, Foix, Carcassonne, Cahors…).";
+const description =
+  "Enlèvement d’épaves gratuit à Toulouse et jusqu’à 100 km : Haute-Garonne et villes voisines (Montauban, Albi, Auch, Castres, Foix, Carcassonne, Cahors…).";
 
 const jsonld = {
   '@context': 'https://schema.org',
-  '@type': 'LocalBusiness',
+  '@type': 'AutoWrecker',
   name: data.name,
-  areaServed: [
-    'Toulouse',
-    'Colomiers','Blagnac','Tournefeuille','Muret','Balma','Ramonville','Cugnaux','Plaisance-du-Touch','L’Union','Saint-Orens','Castelginest','Portet-sur-Garonne','Léguevin','Grenade',
-    'Montauban','Albi','Castres','Auch','Foix','Carcassonne','Cahors'
-  ],
-  serviceArea: { '@type': 'GeoCircle', geoMidpoint: { '@type': 'GeoCoordinates', latitude: 43.6045, longitude: 1.444 }, geoRadius: 100000 },
+  url: (data as any).canonical ?? 'https://epaviste-express-toulouse.fr/',
   telephone: data.phoneCompact,
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: 'Occitanie' },
+    ...cities.map((c: string) => ({ '@type': 'City', name: c })),
+  ],
+  serviceArea: {
+    '@type': 'GeoCircle',
+    geoMidpoint: { '@type': 'GeoCoordinates', latitude: 43.6045, longitude: 1.444 },
+    geoRadius: 100000,
+  },
   address: {
     '@type': 'PostalAddress',
     streetAddress: data.address.street,
     postalCode: data.address.postalCode,
     addressLocality: data.address.city,
     addressRegion: data.address.region,
-    addressCountry: 'FR'
-  }
+    addressCountry: data.address.country ?? 'FR',
+  },
 };
 
-// Liste courte pour maillage interne (tu peux l’allonger si besoin)
+// 4) Proximité & repères (UI)
 const proches = [
-  'Toulouse', 'Colomiers', 'Blagnac', 'Tournefeuille', 'Cugnaux', 'Muret', 'Balma', 'Ramonville', 'Saint-Orens', 'Plaisance-du-Touch', 'L’Union', 'Castelginest', 'Portet-sur-Garonne', 'Grenade', 'Léguevin'
+  'Toulouse', 'Colomiers', 'Blagnac', 'Tournefeuille', 'Cugnaux', 'Muret',
+  'Balma', 'Ramonville', 'Saint-Orens', 'Plaisance-du-Touch', "L'Union",
+  'Castelginest', 'Portet-sur-Garonne', 'Grenade', 'Léguevin',
 ];
 
 const perimetre = [
@@ -61,7 +82,7 @@ const perimetre = [
     <header class="reveal" style="--delay:0ms">
       <h1 class="text-3xl font-bold tracking-tight md:text-4xl">Zones d’intervention</h1>
       <p class="mt-3 max-w-3xl text-zinc-600">
-        Nous intervenons à <strong>Toulouse</strong> et jusqu’à <strong>100&nbsp;km autour</strong>, gratuitement. 
+        Nous intervenons à <strong>Toulouse</strong> et jusqu’à <strong>100&nbsp;km autour</strong>, gratuitement.
         Au-delà du rayon, l’enlèvement reste possible <em>sur devis</em>.
       </p>
       <div class="mt-6 flex flex-wrap gap-3">
@@ -75,8 +96,8 @@ const perimetre = [
     </header>
   </section>
 
-  <!-- Ta section Zone existante (cartouche marketing / badges / CTA) -->
-  <ZoneSection data={data} />
+  <!-- Cartouche marketing -->
+  <ZoneSection data={dataForZone} />
 
   <!-- Grille des villes proches -->
   <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:120ms">
@@ -122,13 +143,59 @@ const perimetre = [
     <p class="mt-3 text-xs text-zinc-500">Distances indicatives «&nbsp;à vol d’oiseau&nbsp;». Gratuit jusqu’à 100&nbsp;km, au-delà sur devis.</p>
   </section>
 
-  <!-- Bloc SEO éditorial court -->
+  <!-- Toutes les communes desservies -->
   <section class="reveal mx-auto max-w-6xl px-6 py-12" style="--delay:200ms">
+    <h2 class="text-2xl font-bold tracking-tight md:text-3xl">Toutes les communes desservies</h2>
+    <p class="mt-2 text-zinc-600">
+      Affichage limité à {MAX_CITIES_DISPLAY} communes pour le confort de lecture. Cliquez sur « Voir tout » pour l’ensemble de la liste.
+    </p>
+
+    <div class="mt-5">
+      <!-- Liste visible -->
+      <ul class="grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {visibleCities.map((v) => (
+          <li class="relative rounded-xl bg-white px-3 py-2 text-sm ring-1 ring-gray-200">
+            <a href={`/blog/?ville=${encodeURIComponent(v)}`} class="absolute inset-0" aria-label={`Articles liés à ${v}`}></a>
+            <span class="relative">{v}</span>
+          </li>
+        ))}
+      </ul>
+
+      <!-- Liste masquée + bouton -->
+      {hiddenCities.length > 0 && (
+        <>
+          <ul id="more-cities-list" style="display:none" class="mt-2 grid gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {hiddenCities.map((v) => (
+              <li class="relative rounded-xl bg-white px-3 py-2 text-sm ring-1 ring-gray-200">
+                <a href={`/blog/?ville=${encodeURIComponent(v)}`} class="absolute inset-0" aria-label={`Articles liés à ${v}`}></a>
+                <span class="relative">{v}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-4">
+            <button
+              id="toggle-cities"
+              class="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-gray-300 transition hover:bg-gray-50"
+              aria-expanded="false"
+              aria-controls="more-cities-list"
+              type="button"
+            >
+              Voir tout (+{hiddenCities.length})
+            </button>
+          </div>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- Bloc SEO éditorial -->
+  <section class="reveal mx-auto max-w-6xl px-6 pb-12" style="--delay:240ms">
     <div class="rounded-2xl bg-white p-6 ring-1 ring-gray-200">
       <h2 class="text-xl font-semibold">Départements couverts</h2>
       <p class="mt-2 text-sm text-zinc-600">
-        Interventions dans la <strong>Haute-Garonne (31)</strong> et, selon l’adresse, sur les secteurs limitrophes : 
-        <strong>Tarn (81)</strong>, <strong>Tarn-et-Garonne (82)</strong>, <strong>Gers (32)</strong>, <strong>Ariège (09)</strong>, 
+        Interventions dans la <strong>Haute-Garonne (31)</strong> et, selon l’adresse, sur les secteurs limitrophes :
+        <strong>Tarn (81)</strong>, <strong>Tarn-et-Garonne (82)</strong>, <strong>Gers (32)</strong>, <strong>Ariège (09)</strong>,
         <strong>Aude (11)</strong>, <strong>Lot (46)</strong>.
       </p>
       <p class="mt-2 text-sm text-zinc-600">
@@ -161,4 +228,24 @@ const perimetre = [
     });
     el.addEventListener('mouseleave', () => { el.style.removeProperty('--x'); el.style.removeProperty('--y'); });
   });
+
+  // Bascule Voir tout / Voir moins
+  (function () {
+    var btn = document.getElementById('toggle-cities');
+    var list = document.getElementById('more-cities-list');
+    if (!btn || !list) return;
+    var expanded = false;
+
+    function update() {
+      list.style.display = expanded ? '' : 'none';
+      btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      var hiddenCount = list.querySelectorAll('li').length;
+      btn.textContent = expanded ? 'Voir moins' : 'Voir tout (+' + hiddenCount + ')';
+    }
+    btn.addEventListener('click', function () {
+      expanded = !expanded;
+      update();
+    });
+    update();
+  })();
 </script>
