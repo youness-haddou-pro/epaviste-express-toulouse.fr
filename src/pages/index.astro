@@ -31,11 +31,53 @@ const openingHours = [
 
 // Villes principales servies (extrait — évite le keyword stuffing, garde-le naturel)
 const cities = [
-  'Toulouse', 'Blagnac', 'Colomiers', 'Tournefeuille', 'Ramonville', 'Balma',
-  'Muret', 'Plaisance-du-Touch', 'Cugnaux', 'L’Union', 'Castanet-Tolosan',
-  'Saint-Orens', 'Labège', 'Portet-sur-Garonne', 'Fenouillet', 'Bruguières',
-  'Albi', 'Montauban', 'Castres'
+  // — 31 • Haute-Garonne (Métropole & proches)
+  'Toulouse','Blagnac','Colomiers','Tournefeuille','Ramonville-Saint-Agne','Balma','L’Union','Saint-Orens-de-Gameville','Labège','Castanet-Tolosan',
+  'Cugnaux','Plaisance-du-Touch','Fonsorbes','Saint-Jean','Aucamville','Fenouillet','Aussonne','Beauzelle','Cornebarrieu','Seilh','Lespinasse',
+  'Bruguières','Gratentour','Saint-Alban','Launaguet','Quint-Fonsegrives','Pechbonnieu','Montrabé','Muret','Portet-sur-Garonne','Roques','Roquettes',
+  'Villeneuve-Tolosane','Frouzins','Seysses','Pins-Justaret','Pinsaguel','Eaunes','Pibrac','Léguevin','Brax','Saint-Lys','Grenade','Castelginest',
+  'Gagnac-sur-Garonne','Montjoire','Villemur-sur-Tarn','Fronton','Bessières','Buzet-sur-Tarn','Bouloc','Villaudric','Saint-Jory','Saint-Sauveur',
+  'Pechbusque','Vigoulet-Auzil','Aureville','Vieille-Toulouse','Balma-Gramont','Escalquens','Saint-Geniès-Bellevue','Drémil-Lafage','Flourens',
+  'Montgiscard','Donneville','Pompertuzat','Ayguesvives','Montlaur','Baziège','Villefranche-de-Lauragais','Revel','Nailloux','Auterive','Carbonne',
+  'Rieumes','Le Fauga','Longages','Cazères','Saint-Gaudens','Bagnères-de-Luchon','L’Isle-en-Dodon','Lavelanet-de-Comminges','Martres-Tolosane',
+  // — 82 • Tarn-et-Garonne
+  'Montauban','Moissac','Castelsarrasin','Montech','Bressols','Lafrançaise','Verdun-sur-Garonne','Grisolles','Finhan','Labastide-Saint-Pierre',
+  // — 81 • Tarn
+  'Albi','Castres','Gaillac','Graulhet','Mazamet','Lavaur','Saint-Sulpice-la-Pointe','Carmaux','Lisle-sur-Tarn','Rabastens','Sorèze',
+  // — 11 • Aude
+  'Carcassonne','Narbonne','Castelnaudary','Lézignan-Corbières','Trèbes','Gruissan','Sigean','Port-la-Nouvelle',
+  // — 34 • Hérault
+  'Montpellier','Béziers','Sète','Agde','Frontignan','Lunel','Lattes','Mauguio','Castelnau-le-Lez','Saint-Jean-de-Védas','Juvignac','Grabels',
+  'Vendargues','Pérols','Clapiers','Jacou','Saint-Gély-du-Fesc','Fabrègues','Prades-le-Lez','Pignan','Villeneuve-lès-Maguelone',
+  // — 30 • Gard
+  'Nîmes','Alès','Bagnols-sur-Cèze','Beaucaire','Vauvert','Uzès','Marguerittes','Saint-Gilles','Le Grau-du-Roi','Villeneuve-lès-Avignon',
+  // — 66 • Pyrénées-Orientales
+  'Perpignan','Canet-en-Roussillon','Saint-Estève','Cabestany','Saint-Cyprien','Argelès-sur-Mer','Rivesaltes','Le Barcarès','Elne','Céret',
+  // — 65 • Hautes-Pyrénées
+  'Tarbes','Lourdes','Bagnères-de-Bigorre','Lannemezan','Vic-en-Bigorre','Odos','Aureilhan',
+  // — 12 • Aveyron
+  'Rodez','Millau','Onet-le-Château','Villefranche-de-Rouergue','Decazeville','Sébazac-Concourès','Luc-la-Primaube',
+  // — 32 • Gers
+  'Auch','Condom','Fleurance','L’Isle-Jourdain','Gimont','Eauze','Mirande',
+  // — 46 • Lot
+  'Cahors','Figeac','Gourdon','Pradines','Saint-Céré','Souillac','Gramat',
+  // — 09 • Ariège
+  'Foix','Pamiers','Saint-Jean-du-Falga','Lavelanet','Tarascon-sur-Ariège','Saverdun','Varilhes',
+  // — 48 • Lozère
+  'Mende','Marvejols','Langogne','Saint-Chély-d’Apcher','Florac',
+  // — 11/34 littoral (compléments utiles)
+  'Vias','Bessan','Montagnac','Mèze','Marseillan','Balaruc-les-Bains','Balaruc-le-Vieux',
+  // — Autres pôles régionaux & proches
+  'Castanet','Saint-Orens','Labarthe-sur-Lèze','Villate','Noé','Capens','Miremont','Aurignac','Salies-du-Salat',
+  'Foix','Pamiers','Castelnaudary','Revel','Mazamet','Gaillac','Graulhet',
+  // — Occitanie (grandes villes déjà couvertes)
+  'Montpellier','Nîmes','Perpignan','Béziers','Narbonne','Carcassonne','Albi','Castres','Montauban','Rodez','Tarbes','Auch','Foix','Cahors','Mende'
 ];
+
+// Affichage zones (limite + dérivés)
+const MAX_CITIES_DISPLAY = 60;
+const visibleCities = cities.slice(0, MAX_CITIES_DISPLAY);
+const hiddenCities = cities.slice(MAX_CITIES_DISPLAY);
 
 // Données structurées LocalBusiness (AutoWrecker)
 const ldLocalBusiness = {
@@ -255,10 +297,51 @@ const ldFAQ = {
       <!-- SECTION ZONES -->
       <section id="zones" class="mx-auto max-w-screen-xl px-4 py-6">
         <div class="bg-white rounded-md border border-slate-200 p-6 shadow-sm">
-          <h2 class="font-semibold text-xl mb-3">Zones d’intervention — Toulouse & Occitanie</h2>
-          <p class="text-slate-700 mb-2">Intervention rapide selon disponibilité sur Toulouse et les communes alentours, ainsi que dans les principales villes d’Occitanie.</p>
-          <p class="text-slate-600 text-sm">Exemples&nbsp;: {cities.join(', ')}…</p>
+          <h2 class="font-semibold text-xl mb-3">Zones d’intervention — Toulouse &amp; Occitanie</h2>
+          <p class="text-slate-700 mb-2">
+            Intervention rapide selon disponibilité sur Toulouse et les communes alentours, ainsi que dans les principales villes d’Occitanie.
+          </p>
+
+          <p class="text-slate-600 text-sm">
+            <span class="font-medium">Exemples&nbsp;:</span>
+            {visibleCities.join(', ')}
+            {hiddenCities.length > 0 && (
+              <>
+                <span id="more-cities" style="display:none">, {hiddenCities.join(', ')}</span>
+                <button
+                  id="toggle-cities"
+                  class="ml-1 inline-flex items-center rounded-md border border-slate-300 bg-white px-2 py-1 text-xs font-semibold text-slate-800 hover:bg-slate-50"
+                  aria-expanded="false"
+                  aria-controls="more-cities"
+                  type="button"
+                >
+                  Voir tout (+{hiddenCities.length})
+                </button>
+              </>
+            )}
+          </p>
         </div>
+
+        <!-- Script de bascule (no dépendance) -->
+        <script>
+          (function () {
+            var btn = document.getElementById('toggle-cities');
+            var more = document.getElementById('more-cities');
+            if (!btn || !more) return;
+
+            var expanded = false;
+            function update() {
+              more.style.display = expanded ? '' : 'none';
+              btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+              btn.textContent = expanded ? 'Voir moins' : 'Voir tout (+' + (more.textContent.split(',').length) + ')';
+            }
+            btn.addEventListener('click', function () {
+              expanded = !expanded;
+              update();
+            });
+            update();
+          })();
+        </script>
       </section>
 
       <!-- SECTION FAQ -->
